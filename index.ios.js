@@ -24,13 +24,10 @@ class motionApp extends Component{
             js: ''
         };
 
-         this.onLoad = this.onLoad.bind(this);
+        
     }
 
-  onLoad(e) {
-      console.log('onLoad');
-          // console.log(e.nativeEvent);
-  }
+
 
   render(){
     return(
