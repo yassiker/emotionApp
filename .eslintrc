@@ -1,0 +1,42 @@
+{
+  "globals": {
+    "jest": true,
+    "Class": true,
+    "it": true,
+    "xit": true,
+    "describe": true,
+    "expect": true,
+    "window": true,
+    "console": true,
+    "require": true,
+    "module": true
+  },
+  "env" : {
+    "es6": true
+  },
+  "plugins": [
+    "react"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "no-console": "warn",
+    "space-before-blocks": "error",
+    "no-debugger": "warn",
+    "no-unused-vars": "warn",
+    "no-undef": "warn",
+    "quotes": ["error", "single", {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }],
+    "indent": ["error", 2],
+    "no-extra-semi": 2,
+    "semi": 2
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended"]
+}

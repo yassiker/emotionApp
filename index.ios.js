@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import {
   AppRegistry,
   Dimensions,
@@ -71,3 +72,5 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('motionApp', () => motionApp);
+
+export default motionApp;

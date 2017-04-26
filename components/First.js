@@ -1,73 +1,66 @@
 import React, { Component } from 'react';
-import {
+import { PropTypes } from 'prop-types';
 
+import {
   StyleSheet,
   Text,
   View,
   Image,
-  TouchableHighlight,
-  AlertIOS
-
+  TouchableHighlight
 } from 'react-native';
 
-import RNFetchBlob from 'react-native-fetch-blob';
-//var base64 = require('base-64');
-import base64ImageString from 'base-64';
-//var fs = require('fs');
-//var request = require('request');
+let emotionImage = require('./imgs/emotion.jpg');
 
-import RNFS from 'react-native-fs';
-var GLOBAL = require('./globals');
-var index = require("./Index");
-//import Index from './Index';
-//var mydata = "";
 class First extends Component {
 
-  onButtonPress(){
+  onButtonPress() {
+
     this.props.navigator.push({
       id: 'Second'
     });
   }
 
+  render() {
 
-  render(){
-    return(
+    return (
       <View style = {styles.container}>
         <Text style = {styles.largeText}>
           Challenge your face emotions
         </Text>
         <Image
-          source={require('./imgs/emotion.jpg')} style={{width:700}}
+          source={emotionImage} style={{width:700}}
         />
         <TouchableHighlight onPress={this.onButtonPress.bind(this)} style={{
-                backgroundColor: 'skyblue',
-                marginBottom: 50,
-                marginTop:100,
-                minHeight: 40,
-                width:300,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 20}}>
-          <Text style={styles.buttonText}> Start the game
-          </Text>
+          backgroundColor: 'skyblue',
+          marginBottom: 50,
+          marginTop:100,
+          minHeight: 40,
+          width:300,
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: 20}}>
+
+          <Text style={styles.buttonText}> Start the game</Text>
         </TouchableHighlight>
 
         <TouchableHighlight onPress={this.onButtonPress.bind(this)} style={{
-                backgroundColor: 'red',
-                marginBottom: 150,
-                minHeight: 30,
-                width:300,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 20}}>
-          <Text style={styles.buttonText}> Quit
-          </Text>
+          backgroundColor: 'red',
+          marginBottom: 150,
+          minHeight: 30,
+          width:300,
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: 20}}>
+          <Text style={styles.buttonText}> Quit</Text>
         </TouchableHighlight>
       </View>
-    )
+    );
   }
-
 }
+
+First.propTypes = {
+  navigator: PropTypes.object
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -87,7 +80,7 @@ const styles = StyleSheet.create({
   largeText: {
     flex:1,
     fontSize: 52,
-    fontFamily: "HelveticaNeue-Light",
+    fontFamily: 'HelveticaNeue-Light',
     paddingTop: 40 ,
     paddingRight: 20,
     paddingLeft: 20,
