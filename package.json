@@ -1,0 +1,32 @@
+{
+  "name": "motionApp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "base-64": "^0.1.0",
+    "buffer": "^5.0.6",
+    "microsoft-computer-vision": "^0.2.6",
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.43.3",
+    "react-native-awesome-button": "^1.8.2",
+    "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
+    "react-native-fetch-blob": "^0.10.4",
+    "react-native-filesystem": "^0.1.0",
+    "react-native-fs": "^2.1.0-rc.1",
+    "react-native-popup": "^0.6.1",
+    "react-native-popup-dialog": "^0.7.27"
+  },
+  "devDependencies": {
+    "babel-jest": "19.0.0",
+    "babel-preset-react-native": "1.9.1",
+    "jest": "19.0.2",
+    "react-test-renderer": "16.0.0-alpha.6"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
