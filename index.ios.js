@@ -1,73 +1,45 @@
 import React, { Component } from 'react';
-
 import {
   AppRegistry,
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
   Navigator,
-  View
 } from 'react-native';
 
-import Camera from 'react-native-camera';
-import First from './components/First';
-import Second from './components/Second';
-import Third from './components/Third';
-//import Index from './components/Index';
+import Home from './components/Home';
+import MotionApi from './components/MotionApi';
 
-
-class motionApp extends Component{
+class motionApp extends Component { 
   constructor(props) {
-        super(props);
-        this.state = {
-            js: ''
-        };
+    super(props);
+    this.state = {
+      js: ''
+    };
 
-        
-    }
+  }
 
+  render() {
 
-
-  render(){
     return(
       <Navigator
         initialRoute = {{
-          id:'First'
+          id:'Home'
         }}
         renderScene={
           this.NavigatorRenderScene
         }
       />
-    )
+    );
   }
 
-  NavigatorRenderScene(route, navigator){
-    _navigator = navigator;
+  NavigatorRenderScene(route, navigator) {
+   
     switch (route.id) {
-      case 'First':
-        return(<First navigator = {navigator} title='First' />);
-      case 'Second':
-        return(<Second navigator = {navigator} title='Second' />);
-      case 'Third':
-        return(<Third navigator = {navigator} title='Third' />);
+    case 'Home':
+      return(<Home navigator = {navigator} title='Home' />);
+    case 'MotionApi':
+      return(<MotionApi navigator = {navigator} title='MotionApi' />);
 
     }
   }
 }
 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#dddfd4'
-  }
-
-
-});
-
 AppRegistry.registerComponent('motionApp', () => motionApp);
-
-export default motionApp;

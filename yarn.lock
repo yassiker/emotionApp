@@ -3388,13 +3388,6 @@ react-devtools-core@^2.0.8:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-native-awesome-button@^1.8.2:
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/react-native-awesome-button/-/react-native-awesome-button-1.8.2.tgz#8c5a1926d3a0ab878034d90eda5e2c944b1a2209"
-  dependencies:
-    react "^15.4.2"
-    react-native "^0.41.2"
-
 "react-native-camera@git+https://github.com/lwansbrough/react-native-camera.git":
   version "0.7.0"
   resolved "git+https://github.com/lwansbrough/react-native-camera.git#d54eae9ea5c41d5a1cf955cc5c7ec2f88dff81ba"

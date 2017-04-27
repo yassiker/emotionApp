@@ -11,12 +11,12 @@ import {
 
 let emotionImage = require('./imgs/emotion.jpg');
 
-class First extends Component {
+class Home extends Component {
 
   onButtonPress() {
 
     this.props.navigator.push({
-      id: 'Second'
+      id: 'MotionApi'
     });
   }
 
@@ -58,7 +58,7 @@ class First extends Component {
   }
 }
 
-First.propTypes = {
+Home.propTypes = {
   navigator: PropTypes.object
 };
 
@@ -89,4 +89,4 @@ const styles = StyleSheet.create({
 
 });
 
-module.exports = First;
+module.exports = Home;
