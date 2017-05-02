@@ -4,8 +4,10 @@ import {
   Navigator,
 } from 'react-native';
 
-import Home from './components/Home';
 import MotionApi from './components/MotionApi';
+import Home from './components/Home';
+import Emotions from './components/Emotions';
+import Result from './components/Result';
 
 class motionApp extends Component { 
   constructor(props) {
@@ -33,10 +35,14 @@ class motionApp extends Component {
   NavigatorRenderScene(route, navigator) {
    
     switch (route.id) {
-    case 'Home':
-      return(<Home navigator = {navigator} title='Home' />);
     case 'MotionApi':
       return(<MotionApi navigator = {navigator} title='MotionApi' />);
+    case 'Home' :
+      return(<Home navigator = {navigator} title='Home'/>);
+    case 'Emotions' :
+      return(<Emotions navigator = {navigator} title='Emotions'/>);
+    case 'Result' :
+      return(<Result navigator = {navigator} title='Result'/>);
 
     }
   }

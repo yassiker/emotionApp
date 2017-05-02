@@ -1,92 +1,81 @@
 import React, { Component } from 'react';
+import {
+  Dimensions
+} from 'react-native';
 import { PropTypes } from 'prop-types';
 
 import {
-  StyleSheet,
-  Text,
-  View,
   Image,
-  TouchableHighlight
-} from 'react-native';
+  Title,
+  Tile,
+  Button,
+  Subtitle,
+  Overlay, 
+  Text,
+  View 
 
-let emotionImage = require('./imgs/emotion.jpg');
+} from '@shoutem/ui';
+import Popup from 'react-native-popup';
+
+let img1 = require('./imgs/backEm.jpg');
+
 
 class Home extends Component {
 
+  render() {
+    //var {height, width} = Dimensions.get('window');
+   
+    return (
+      <View style={styleTypes.selectedOption}>
+      <Image
+        styleName='large-square'
+        source={img1}
+        style={styleTypes.backgroundImage}
+      >
+        <Tile>
+          <Title styleName="md-gutter-bottom" style={{marginBottom:20, bottom:60}}>EMOTION RECOGNITION</Title>
+          <Title styleName="md-gutter-bottom" style={{marginBottom:200, bottom:60}}>ANGER, HAPPINESS, SADNAESS, AND MORE ...</Title>
+          <Button styleName="dark" onPress={this.onButtonPress.bind(this)} style={{top:20}}>
+          <Text>START</Text>
+          </Button>
+          <Overlay styleName="solid-bright" style={{top:20}}>
+            <Subtitle styleName="sm-gutter-horizontal">TO CHALLEGNE YOUR FACE EMOTION</Subtitle>
+          </Overlay>
+        </Tile>
+      </Image>
+      
+       <Popup ref={popup => this.popup = popup }/>
+
+      </View>
+
+    );
+  }
   onButtonPress() {
 
     this.props.navigator.push({
-      id: 'MotionApi'
+      id: 'Emotions'
     });
-  }
 
-  render() {
-
-    return (
-      <View style = {styles.container}>
-        <Text style = {styles.largeText}>
-          Challenge your face emotions
-        </Text>
-        <Image
-          source={emotionImage} style={{width:700}}
-        />
-        <TouchableHighlight onPress={this.onButtonPress.bind(this)} style={{
-          backgroundColor: 'skyblue',
-          marginBottom: 50,
-          marginTop:100,
-          minHeight: 40,
-          width:300,
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 20}}>
-
-          <Text style={styles.buttonText}> Start the game</Text>
-        </TouchableHighlight>
-
-        <TouchableHighlight onPress={this.onButtonPress.bind(this)} style={{
-          backgroundColor: 'red',
-          marginBottom: 150,
-          minHeight: 30,
-          width:300,
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 20}}>
-          <Text style={styles.buttonText}> Quit</Text>
-        </TouchableHighlight>
-      </View>
-    );
   }
 }
+
 
 Home.propTypes = {
   navigator: PropTypes.object
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex:1,
+const styleTypes = {
+  selectedOption: {
+    flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#dddfd4'
+    backgroundColor:'skyblue',
+    paddingTop: 0,
+    
   },
-
-  button: {
-    flex:1,
-    backgroundColor: 'skyblue',
-    height: 40,
-    width: 40
-  },
-
-  largeText: {
-    flex:1,
-    fontSize: 52,
-    fontFamily: 'HelveticaNeue-Light',
-    paddingTop: 40 ,
-    paddingRight: 20,
-    paddingLeft: 20,
-    color: '#173e43'
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover', // or 'stretch'
   }
-
-});
+};
 
 module.exports = Home;

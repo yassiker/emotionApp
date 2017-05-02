@@ -7,22 +7,26 @@
     "test": "jest"
   },
   "dependencies": {
+    "@shoutem/ui": "^0.13.0",
     "base-64": "^0.1.0",
     "buffer": "^5.0.6",
+    "eslint": "^3.19.0",
     "prop-types": "^15.5.8",
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.3",
-    "react-native-awesome-button": "^1.8.2",
     "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-fetch-blob": "^0.10.4",
     "react-native-filesystem": "^0.1.0",
     "react-native-fs": "^2.1.0-rc.1",
+    "react-native-linear-gradient": "^2.0.0",
     "react-native-popup": "^0.6.1",
-    "react-native-popup-dialog": "^0.7.27"
+    "react-native-popup-dialog": "^0.7.27",
+    "react-native-vector-icons": "^4.0.1"
   },
   "devDependencies": {
     "babel-jest": "19.0.0",
     "babel-preset-react-native": "1.9.1",
+    "eslint-plugin-react": "^6.10.3",
     "jest": "19.0.2",
     "react-test-renderer": "16.0.0-alpha.6"
   },

@@ -5,13 +5,17 @@ import {
   Text,
   View,
   StyleSheet
-
 } from 'react-native';
+import {
+  Icon
+
+} from '@shoutem/ui';
 
 import Camera from 'react-native-camera';
 var Config = require('./Config');
 import RNFS from 'react-native-fs';
 import Popup from 'react-native-popup';
+//let global = require('buffer').Buffer;
 global.Buffer = global.Buffer || require('buffer').Buffer;
 
 class MotionApi extends Component {
@@ -30,17 +34,10 @@ class MotionApi extends Component {
     });
   }
 
-  toIndex() {
-    this.props.navigator.push({
-      id: 'Home'
-    });
-  }
-
   render() {
     return (
 
       <View style={styles.container}>
-
         <Camera
           ref={(cam) => {
             this.camera = cam;
@@ -53,11 +50,6 @@ class MotionApi extends Component {
 
           <TouchableHighlight style ={styles.capture} onPress={this.takePicture.bind(this)}>
             <Text style={styles.buttonText}> Capture
-            </Text>
-          </TouchableHighlight>
-
-          <TouchableHighlight style ={styles.quit} onPress={this.toIndex.bind(this)}>
-            <Text style={styles.buttonText}> Home
             </Text>
           </TouchableHighlight>
 
@@ -107,36 +99,52 @@ class MotionApi extends Component {
                     switch (i) {
                     case 0:
                       arrtemp[i] = data[0].scores.anger;
+                      Config.mydata[i] = data[0].scores.anger;
+                      Config.emotionArray[i] = 'Angry';
                       break;
                     case 1:
                       arrtemp[i] = data[0].scores.contempt;
+                      Config.mydata[i] = data[0].scores.contempt;
+                      Config.emotionArray[i] = 'Contempt';
                       break;
                     case 2:
                       arrtemp[i] = data[0].scores.disgust;
+                      Config.mydata[i] = data[0].scores.contempt;
+                      Config.emotionArray[i] = 'Disgust';
                       break;
                     case 3:
                       arrtemp[i] = data[0].scores.fear;
+                      Config.mydata[i] = data[0].scores.contempt;
+                      Config.emotionArray[i] = 'Fear';
                       break;
                     case 4:
                       arrtemp[i] = data[0].scores.happiness;
+                      Config.mydata[i] = data[0].scores.contempt;
+                      Config.emotionArray[i] = 'Happiness';
                       break;
                     case 5:
                       arrtemp[i] = data[0].scores.neutral;
+                      Config.mydata[i] = data[0].scores.contempt;
+                      Config.emotionArray[i] = 'Neutral';
                       break;
                     case 6:
                       arrtemp[i] = data[0].scores.sadness;
+                      Config.mydata[i] = data[0].scores.contempt;
+                      Config.emotionArray[i] = 'Sad';
                       break;
                     case 7:
                       arrtemp[i] = data[0].scores.surprise;
+                      Config.mydata[i] = data[0].scores.contempt;
+                      Config.emotionArray[i] = 'Surprise';
                       break;
                     default:
 
                     }
                   }
 
-                  var ind = myindex(arrtemp);
+                  var mexIndex = myindex(arrtemp);
                
-                  switch (ind) {
+                  switch (mexIndex) {
                   case 0:
                     Config.emotion = 'Angry';
                     Config.emotionvalue = arrtemp[0];
@@ -189,8 +197,7 @@ class MotionApi extends Component {
                     }
                     return maxIndex;
                   }
-
-       
+                  
                   this.setState({emotion: Config.emotion , emotionvalue: Config.emotionvalue }, function () {
                     this.popup.tip({
                       title: 'Emotion',
@@ -206,7 +213,7 @@ class MotionApi extends Component {
 
       })
       .then((data) => this.props.navigator.push({
-        id: 'MotionApi'
+        id: 'Result'
       }))
       .catch(err => console.error(err));
   }
@@ -253,7 +260,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40
   },
-  quit: {
+  quit: { 
     backgroundColor: 'red',
     marginBottom: 50,
     marginTop:50,
