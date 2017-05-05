@@ -8,6 +8,7 @@ import MotionApi from './components/MotionApi';
 import Home from './components/Home';
 import Emotions from './components/Emotions';
 import Result from './components/Result';
+import History from './components/History';
 
 class motionApp extends Component { 
   constructor(props) {
@@ -43,6 +44,8 @@ class motionApp extends Component {
       return(<Emotions navigator = {navigator} title='Emotions'/>);
     case 'Result' :
       return(<Result navigator = {navigator} title='Result'/>);
+    case 'History' :
+      return(<History navigator = {navigator} title='History'/>);
 
     }
   }

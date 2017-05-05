@@ -12,7 +12,8 @@ import {
 
   Tile,
   Title,
-  Image
+  Overlay,
+  Subtitle
 
 } from '@shoutem/ui';
 
@@ -22,24 +23,36 @@ import RNFS from 'react-native-fs';
 import Popup from 'react-native-popup';
 global.Buffer = global.Buffer || require('buffer').Buffer;
 
-class MotionApi extends Component {
+class Api extends Component {
   constructor(props) {
     super(props);
+    let myvar;
+    
+    
     this.state = {
       emotion: '' ,
       emotionvalue:0,
-      timer:3,
+      timer:5,
       mylook: '',
       myvar: 0
     };
+    
 
+    /*this.setState(myvar, function() {
+     
+      this.myvar =  Math.floor(Math.random() * (7 - 1)) + 1;
+    
+    });*/
   }
 
 
   getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
- 
+  onButtonPress() {
+    return 'yassine';
+        
+  }
 
   render() {
 
@@ -55,23 +68,18 @@ class MotionApi extends Component {
           captureQuality={Camera.constants.CaptureQuality.high}
           type={Camera.constants.Type.front}
           captureTarget={Camera.constants.CaptureTarget.disk}>
-          <Image
-            styleName="small"
-            source={Config.emotURL}
-            style={{left:300,top:50, backgroundColor:'transparent'}} />
-          <Tile styleName="text-centric" style={{marginLeft:150,marginBottom:100, marginRight:150, marginTop:0, backgroundColor:'transparent'}}>
-            <Title styleName="md-gutter-bottom">TRY TO LOOK</Title>
-            <Title styleName="md-gutter-bottom" style={{color:'skyblue',fontWeight: 'bold',fontSize: 25}}>{Config.randomEmotion.toUpperCase()}</Title>
-            
-          
-            <View style={{}}>
-              <Text style={{color:'skyblue',borderColor:'black', borderWidth:5,fontWeight: 'bold',fontSize: 50,paddingTop: 20,borderRadius:50,width: 100,height:100,textAlign: 'center'}}>{this.state.timer}</Text>
-            </View>
+
+          <Tile styleName="text-centric" style={{marginLeft:60, top:270,marginBottom:300, width:250}}>
+          <Title styleName="md-gutter-bottom">TRY TO LOOK</Title>
+          <Title styleName="md-gutter-bottom">{Config.randomEmotion}</Title>
+          <Overlay styleName="solid-dark" style={{borderRadius:25, width:50, height:50,shadowColor:'black', shadowOpacity:0, shadowRadius:25,shadowOffset:{width: 0, height: 40}}}>
+            <Subtitle styleName="sm-gutter-horizontal">{this.state.timer}</Subtitle>
+          </Overlay>
           </Tile>
            <View >
           </View>
           <TouchableHighlight style ={styles.capture} onPress={this.takePicture.bind(this)}>
-            <Text style={styles.buttonText}> START
+            <Text style={styles.buttonText}> Start
             </Text>
           </TouchableHighlight>
 
@@ -83,15 +91,15 @@ class MotionApi extends Component {
   }
 
   takePicture() {
+
      
-    //alert(Config.randomEmotion);
     setTimeout( () => {
       if(this.state.timer == 0) {
-
+        
+        //Inser here ------------------
         const options = {};
         this.camera.capture([options])
       .then((data) => {
-        
         var myimg = data.path;
         var img = myimg.replace('file:', '');
         Config.myurl = img;
@@ -123,11 +131,6 @@ class MotionApi extends Component {
                 return responseData; })
                 .then((data) => {
 
-
-                  /*
-                  I have the index of the selected emotion : Config.index
-
-                  */
                   var arrtemp = [];
                   for (var i = 0; i < 8; i++) {
                     switch (i) {
@@ -175,10 +178,6 @@ class MotionApi extends Component {
 
                     }
                   }
-                  //alert('my index here is: ' + Config.index);
-                  //Config.emotion = Config.emotionArray[Config.index];
-                  //Config.emotionvalue = Config.mydata[Config.index];
-                   //alert(Config.mydata[Config.index] + ' ' + Config.emotionArray[Config.index]);
 
                   var mexIndex = myindex(arrtemp);
                
@@ -196,7 +195,7 @@ class MotionApi extends Component {
                     Config.emotionvalue = arrtemp[2];
                     break;
                   case 3:
-                    Config.emotion = 'Scared';
+                    Config.emotion = 'Fear';
                     Config.emotionvalue = arrtemp[3];
                     break;
                   case 4:
@@ -235,14 +234,13 @@ class MotionApi extends Component {
                     }
                     return maxIndex;
                   }
+                  
+                  this.setState({emotion: Config.emotion , emotionvalue: Config.emotionvalue }, function () {
+                    this.popup.tip({
+                      title: 'Emotion',
+                      content: ['You are ' + this.state.emotionvalue*100 + '%' , this.state.emotion],
+                    });
 
-                  console.log(data);
-                  // Fill history
-                  Config.picHistory[Config.historyCnt] = {'emotion': Config.emotion, 'value': Config.emotionvalue, 'url': Config.myurl};
-                  Config.historyCnt = Config.historyCnt + 1;
-                  alert('Picture was successfully taken');
-                  this.props.navigator.push({
-                    id: 'Result'
                   });
 
                 }).catch(function(err) {
@@ -251,9 +249,16 @@ class MotionApi extends Component {
             });
 
       })
+      .then(() => this.props.navigator.push({
+        id: 'Result'
+      }))
       .catch(err => console.error(err));
 
+        // Stops here -----------------
+
+
       }else {
+        //alert('Im right');
         this.setState({
           timer : this.state.timer - 1
         });
@@ -265,10 +270,9 @@ class MotionApi extends Component {
     
   }
 
-   
 }
 
-MotionApi.propTypes = {
+Api.propTypes = {
   navigator: PropTypes.object
 };
 
@@ -288,19 +292,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'skyblue',
     marginBottom: 0,
     marginTop:100,
-    height: 100,
-    width:100,
+    height: 40,
+    width:40,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 50,
-    
+    borderRadius: 20
   },
-  buttonText:{
-    fontWeight: 'bold',
-    fontSize: 25
-  }
   
 
 });
 
-module.exports = MotionApi;
+module.exports = Api;

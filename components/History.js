@@ -10,23 +10,27 @@ import {
   Card,
   Icon,
   Caption,
-  Screen,
   ListView,
-  GridRow
+  GridRow,
+  NavigationBar,
+  Button,
+  Title,
+  Text,
+  Tile,
+  Heading
 } from '@shoutem/ui';
-//import Popup from 'react-native-popup';
-let img = require('./imgs/myimg2.png');
+
+var Config = require('./Config');
 let happy = require('./imgs/happy.jpg');
 let angry = require('./imgs/angry.jpg');
 let surprise = require('./imgs/surprise.jpg');
 let sad = require('./imgs/sad.jpg');
 
-class Emotions extends Component {
+class History extends Component {
 
   constructor(props) {
     super(props);
     this.renderRow = this.renderRow.bind(this);
-    this.myvalue = 5;
     this.state = {
       emotions: [{
         'emotion': 'Happy',
@@ -59,10 +63,21 @@ class Emotions extends Component {
       return (
         <TouchableOpacity key={index}>
           <Image
-            styleName="large"
-            source={img}
+            styleName="large-banner"
+            source={{uri:Config.picHistory[0].url}}
           >
-           
+           <Tile>
+            <Heading>{Config.emotionArray[Config.historyCnt ]} BY</Heading>
+            <Heading>{(Config.mydata[Config.historyCnt]*100).toFixed(2)}%</Heading>
+            <Button styleName="md-gutter-top" onPress={this.onCamPress.bind(this)}>
+            <Icon name="refresh"/>
+            <Text>New Try</Text>
+            </Button>
+            <Button styleName="md-gutter-top" onPress={this.onHomePress.bind(this)}>
+            <Icon name="sidebar"/>
+            <Text>{'  '} Home</Text>
+            </Button>
+        </Tile>
           </Image>
           <Divider styleName="line" />
         </TouchableOpacity>
@@ -74,14 +89,14 @@ class Emotions extends Component {
         <TouchableOpacity key={id} styleName="flexible">
           <Card styleName="flexible" >
             <Image
-              styleName="medium-avatar"
-              source= { myemotion.image  }
+              styleName="medium-wide"
+              source= {{uri : myemotion.url  }}
               style={{marginLeft:15, marginTop:10}}
             />
             <View styleName="content" style={{left:30, width: 150}} >
               <View styleName="horizontal" >
-                <Caption styleName="collapsible" numberOfLines={2} >{myemotion.description}</Caption>
-                <Icon name="right-arrow" style={{top:5}} onPress={this.onButtonPress.bind(this)} />
+                <Caption styleName="collapsible" numberOfLines={2} >{myemotion.emotion}</Caption>
+                <Caption styleName="collapsible" numberOfLines={2} >{(myemotion.value*100).toFixed(2)}%</Caption>
               </View>
               
             </View>
@@ -99,7 +114,7 @@ class Emotions extends Component {
   render() {
  
     let isFirstArticle = true;
-    const groupedData = GridRow.groupByRows(this.state.emotions, 2, () => {
+    const groupedData = GridRow.groupByRows(Config.picHistory, 2, () => {
       if (isFirstArticle) {
         isFirstArticle = false;
         return 2;
@@ -108,22 +123,37 @@ class Emotions extends Component {
       return 1;
     });
     return (
-      <Screen>
+
+        <View>
+          <NavigationBar
+        leftComponent={<Button >
+            <Icon name="back" />
+            </Button>}
+        centerComponent={<Title>RESULT</Title>}
+        rightComponent={(
+            <Button styleName='clear'>
+            <Text>Home</Text>
+            </Button>
+        )}
+        />
         <ListView
           data={groupedData}
           renderRow={this.renderRow}
+         
         />
-      </Screen>
+      </View>
     );
   }
 
-  onButtonPress() {
+  onHomePress() {
 
-    //Alert.alert('heeey you ');
-    /*this.popup.tip({
-      title: 'Emotion',
-      content: [ '  height is ' + Sheight + '  width is ' , Swidth]
-    });*/
+    this.props.navigator.push({
+      id: 'Home'
+    });
+
+  }
+
+  onCamPress() {
 
     this.props.navigator.push({
       id: 'MotionApi'
@@ -132,8 +162,8 @@ class Emotions extends Component {
   }
 
 }
-Emotions.propTypes = {
+History.propTypes = {
   navigator: PropTypes.object
 };
 
-module.exports = Emotions;
+module.exports = History;
