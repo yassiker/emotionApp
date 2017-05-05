@@ -67,11 +67,12 @@ class MotionApi extends Component {
             <View style={{}}>
               <Text style={{color:'skyblue',borderColor:'black', borderWidth:5,fontWeight: 'bold',fontSize: 50,paddingTop: 20,borderRadius:50,width: 100,height:100,textAlign: 'center'}}>{this.state.timer}</Text>
             </View>
+            
           </Tile>
            <View >
           </View>
           <TouchableHighlight style ={styles.capture} onPress={this.takePicture.bind(this)}>
-            <Text style={styles.buttonText}> START
+            <Text style={styles.buttonText}> Capture
             </Text>
           </TouchableHighlight>
 
@@ -82,6 +83,10 @@ class MotionApi extends Component {
     );
   }
 
+
+  hellome() {
+    alert('You called me');
+  }
   takePicture() {
      
     //alert(Config.randomEmotion);
@@ -128,8 +133,40 @@ class MotionApi extends Component {
                   I have the index of the selected emotion : Config.index
 
                   */
+
+
                   var arrtemp = [];
-                  for (var i = 0; i < 8; i++) {
+                  //Config.emotion = Config.randomEmotion;
+                  //Config.emotionvalue = Config.mydata[Config.index];
+                  switch (Config.index) {
+                  case 0:
+                    Config.emotionvalue = data[0].scores.anger;
+                    break;
+                  case 1:
+                    Config.emotionvalue = data[0].scores.contempt;
+                    break;
+                  case 2:
+                    Config.emotionvalue = data[0].scores.disgust;
+                    break;
+                  case 3:
+                    Config.emotionvalue = data[0].scores.fear;
+                    break;
+                  case 4:
+                    Config.emotionvalue = data[0].scores.happiness;
+                    break;
+                  case 5:
+                    Config.emotionvalue = data[0].scores.neutral;
+                    break;
+                  case 6:
+                    Config.emotionvalue = data[0].scores.sadness;
+                    break;
+                  case 7:
+                    Config.emotionvalue = data[0].scores.surprise;
+                    break;
+                  default:
+
+                  }
+                  /*for (var i = 0; i < 8; i++) {
                     switch (i) {
                     case 0:
                       arrtemp[i] = data[0].scores.anger;
@@ -174,15 +211,14 @@ class MotionApi extends Component {
                     default:
 
                     }
-                  }
+                  }*/
                   //alert('my index here is: ' + Config.index);
-                  //Config.emotion = Config.emotionArray[Config.index];
-                  //Config.emotionvalue = Config.mydata[Config.index];
+                  
                    //alert(Config.mydata[Config.index] + ' ' + Config.emotionArray[Config.index]);
 
                   var mexIndex = myindex(arrtemp);
                
-                  switch (mexIndex) {
+                  /*switch (mexIndex) {
                   case 0:
                     Config.emotion = 'Angry';
                     Config.emotionvalue = arrtemp[0];
@@ -217,7 +253,7 @@ class MotionApi extends Component {
                     break;
                   default:
 
-                  }
+                  }*/
 
                   function myindex(arrtemp) {
                     if (arrtemp.length === 0) {

@@ -28,6 +28,19 @@ let disgust = require('./imgs/emojs/disgust.jpeg');
 
 class Home extends Component {
 
+  constructor() {
+    super();
+    this.state = {
+      showView:true
+    };
+  }
+
+  removeView() { 
+    this.setState({
+      showView:false
+    });
+  }
+  
   render() {
       
     return (

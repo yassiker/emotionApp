@@ -16,6 +16,7 @@ import {
 } from '@shoutem/ui';
 
 var Config = require('./Config');
+var MotionApi = require('./Config');
 let contempt = require('./imgs/emojs/contempt.jpeg');
 let fear = require('./imgs/emojs/fear.jpeg');
 let happy = require('./imgs/emojs/happy.jpeg');
@@ -116,7 +117,11 @@ class Result extends Component {
   onBackPress() {
     Config.mytimer = 3;
     // randomly generating an emotion and coresponding icon
-
+    Config.emotionvalue = 0;
+    Config.emotion = '';
+    Config.emotURL = '',
+    Config.myurl = '';
+    // this.MotionApi.hellome.bind(this);
     var i = Math.floor((Math.random() * 8) + 1);
 
     switch (i) {

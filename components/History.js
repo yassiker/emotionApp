@@ -69,10 +69,6 @@ class History extends Component {
            <Tile>
             <Heading>{Config.emotionArray[Config.historyCnt ]} BY</Heading>
             <Heading>{(Config.mydata[Config.historyCnt]*100).toFixed(2)}%</Heading>
-            <Button styleName="md-gutter-top" onPress={this.onCamPress.bind(this)}>
-            <Icon name="refresh"/>
-            <Text>New Try</Text>
-            </Button>
             <Button styleName="md-gutter-top" onPress={this.onHomePress.bind(this)}>
             <Icon name="sidebar"/>
             <Text>{'  '} Home</Text>
@@ -125,23 +121,12 @@ class History extends Component {
     return (
 
         <View>
-          <NavigationBar
-        leftComponent={<Button >
-            <Icon name="back" />
-            </Button>}
-        centerComponent={<Title>RESULT</Title>}
-        rightComponent={(
-            <Button styleName='clear'>
-            <Text>Home</Text>
-            </Button>
-        )}
-        />
         <ListView
           data={groupedData}
           renderRow={this.renderRow}
          
         />
-      </View>
+        </View>
     );
   }
 
@@ -153,13 +138,6 @@ class History extends Component {
 
   }
 
-  onCamPress() {
-
-    this.props.navigator.push({
-      id: 'MotionApi'
-    });
-
-  }
 
 }
 History.propTypes = {
