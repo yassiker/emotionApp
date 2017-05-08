@@ -9,7 +9,7 @@ module.exports = {
   randomEmotion:'',
   index:0,
   picHistory: [],
-  historyCnt:0,
+  historyCnt:3,
   mytimer :3,
 
   

@@ -26,12 +26,12 @@ global.Buffer = global.Buffer || require('buffer').Buffer;
 const timer = require('react-native-timer');
 
 
-class MotionApi extends Component {
+class EmotionApi extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      showMsg: true,
+      showMsg: false,
       emotion: '' ,
       emotionvalue:0,
       timer:3,
@@ -56,34 +56,30 @@ class MotionApi extends Component {
   }
 
   componentDidMount() {
-    //alert(this.state.showMsg);
-    //this.setState({showMsg: true, counter:3});
+    alert(this.state.showMsg);
+    this.setState({showMsg: true, counter:3});
     //this.setToggleTimeout();
   }
 
   componentWillUnmount() {
     //this.setToggleTimeout();
-    //this.setState({showMsg: false, counter:3});
-    //timer.clearInterval(this);
+    timer.clearInterval(this);
   }
 
   myalert() { 
 
-    alert('ddddddddd');
-    //num  = num + 1 ;
-    if(this.state.counter === 0 ) {
-      Config.randomEmotion = '';
-      alert('eeessssss');
-      this.props.navigator.push({
-        id: 'Result',
-      });
+    if(this.state.counter == 0 ) {
+      
       timer.clearInterval(this);
-
       this.setState({
         counter : 3,
         showMsg: false, 
       });
-      
+      Config.randomEmotion = '';
+      this.props.navigator.push({
+        id: 'Result',
+        myvar: 3 ,
+      });
 
     }else {
     
@@ -106,56 +102,9 @@ class MotionApi extends Component {
   }
 
   render() {
+    
+    return (
 
-    if(this.state.showMsg === true) {
-      //alert('heeeey true');
-      return <View style={styles.container}> 
-        <Camera
-          ref={(cam) => {
-            this.camera = cam;
-          }}
-          style={styles.preview}
-          aspect={Camera.constants.Aspect.fill}
-          captureQuality={Camera.constants.CaptureQuality.high}
-          type={Camera.constants.Type.front}
-          captureTarget={Camera.constants.CaptureTarget.disk}>
-            
-            <Button title="" onPress = {this.onBack.bind(this)}>
-            <Image src={img1}/>
-            </Button>
-            <Tile styleName="text-centric" style={{marginLeft:150,marginBottom:100, marginRight:150, marginTop:0, backgroundColor:'transparent',borderColor:'black'}}>
-            <Text style={{top:200,color:'skyblue',borderColor:'black', borderWidth:5,fontWeight: 'bold',fontSize: 50,paddingTop: 20,borderRadius:275,width: 550,height:550,textAlign: 'center'}}></Text>           
-          
-          </Tile>
-          <Tile styleName="text-centric" style={{marginLeft:150,marginBottom:100, marginRight:150, marginTop:0, backgroundColor:'transparent'}}>
-            <Title styleName="md-gutter-bottom" style={{color:'skyblue',fontWeight: 'bold',fontSize: 25}}>{Config.randomEmotion.toUpperCase()}</Title>            
-          </Tile>
-
-          {this.state.showMsg ? ( 
-     
-             <Text style={{fontSize: 60,fontWeight: 'bold',color:'skyblue'}}>{this.state.counter}</Text>  
-        
-        ) : (
-          <Text style={{fontSize: 60,fontWeight: 'bold',color:'skyblue'}}></Text>
-        )}
-
-          <TouchableOpacity onPress={()  => this.takePicture()} style={{backgroundColor:'skyblue',justifyContent:'center', marginLeft:25, width:150, marginTop:10,marginBottom:10, height:60}}>
-            <Text style={{marginLeft:30,fontSize: 20,fontWeight: 'bold',}}>Capture</Text>
-          </TouchableOpacity>
-
-            
-        </Camera>
-
-      </View>;
-
-    }else {
-      //alert('heeeey false');
-      return <View><Text>not here </Text></View>;
-    }
-
-
-    /*return (
-      
       <View style={styles.container}> 
         <Camera
           ref={(cam) => {
@@ -170,38 +119,60 @@ class MotionApi extends Component {
             <Button title="" onPress = {this.onBack.bind(this)}>
             <Image src={img1}/>
             </Button>
-            <Tile styleName="text-centric" style={{marginLeft:150,marginBottom:100, marginRight:150, marginTop:0, backgroundColor:'transparent',borderColor:'black'}}>
-            <Text style={{top:200,color:'skyblue',borderColor:'black', borderWidth:5,fontWeight: 'bold',fontSize: 50,paddingTop: 20,borderRadius:275,width: 550,height:550,textAlign: 'center'}}></Text>           
+            <Tile styleName="text-centric" style={styles.tileS}>
+            <Text style={styles.textS}></Text>           
           
           </Tile>
-          <Tile styleName="text-centric" style={{marginLeft:150,marginBottom:100, marginRight:150, marginTop:0, backgroundColor:'transparent'}}>
-            <Title styleName="md-gutter-bottom" style={{color:'skyblue',fontWeight: 'bold',fontSize: 25}}>{Config.randomEmotion.toUpperCase()}</Title>            
+          <Tile styleName="text-centric" style={styles.tileS2}>
+            <Title styleName="md-gutter-bottom" style={styles.commonTxt}>{Config.randomEmotion.toUpperCase()}</Title>            
           </Tile>
 
           {this.state.showMsg ? ( 
      
-             <Text style={{fontSize: 60,fontWeight: 'bold',color:'skyblue'}}>{this.state.counter}</Text>  
+             <Text style={styles.commonTxt}>{this.state.counter}</Text>  
         
         ) : (
-          <Text style={{fontSize: 60,fontWeight: 'bold',color:'skyblue'}}></Text>
+          <Text style={styles.commonTxt}>RandomText</Text>
         )}
 
-          <TouchableOpacity onPress={()  => this.takePicture()} style={{backgroundColor:'skyblue',justifyContent:'center', marginLeft:25, width:150, marginTop:10,marginBottom:10, height:60}}>
-            <Text style={{marginLeft:30,fontSize: 20,fontWeight: 'bold',}}>Capture</Text>
+          <TouchableOpacity onPress={()  => this.takePicture()} style={styles.touchS}>
+            <Text style={styles.commonTxt}>Capture</Text>
           </TouchableOpacity>
 
             
         </Camera>
 
       </View>
-    );*/
+    );
   }
 
   takePicture() {
  
     this.setState({showMsg: true}, () => timer.setInterval(
-      this, 'hideMsg', this.myalert.bind(this), 500
-    ));
+      this, 'hideMsg', () =>  {
+
+        // instead of this.state.counter put Config.historyCnt
+        if(this.state.counter == 0 ) {
+      
+          timer.clearInterval(this);
+          this.setState({
+            counter : 3,
+            showMsg: false, 
+          });
+          Config.randomEmotion = '';
+          this.props.navigator.push({
+            id: 'Result',
+            myvar: 3 ,
+          });
+
+        }else {
+    
+          this.setState({
+            counter : this.state.counter - 1
+          });
+        }
+
+      }, 1000));
     
 
     const options = {};
@@ -276,15 +247,12 @@ class MotionApi extends Component {
 
                   }
                   
-                  //console.log(data);
-                  /*if(this.state.counter == 0) {
-                    this.props.navigator.push({
-                      id: 'Result',
-                      myvar: '10',
-                    });
+                  console.log(data);
 
-                  }*/
-                  
+                  /*this.props.navigator.push({
+                    id: 'Result',
+                    myvar: '10',
+                  });*/
 
                   /*this.setState({
                     counter : 3,
@@ -306,7 +274,7 @@ class MotionApi extends Component {
    
 }
 
-MotionApi.propTypes = {
+EmotionApi.propTypes = {
   navigator: PropTypes.object,
   title: PropTypes.string.isRequired,
 };
@@ -343,9 +311,55 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',  
-  }
+  },
+
+  textS: {
+    top:200,
+    color:'skyblue',
+    borderColor:'black',
+    borderWidth:5,
+    fontWeight: 'bold',
+    fontSize: 50,
+    paddingTop: 20,
+    borderRadius:275,
+    width: 550,
+    height:550,
+    textAlign: 'center'
+  },
+
+  tileS: {
+    marginLeft:150,
+    marginBottom:100,
+    marginRight:150,
+    marginTop:0,
+    backgroundColor:'transparent',
+    borderColor:'black'
+  },
   
+  tileS2: {
+    marginLeft:150,
+    marginBottom:100,
+    marginRight:150,
+    marginTop:0,
+    backgroundColor:'transparent'
+  },
+
+  touchS: {
+    backgroundColor:'skyblue',
+    justifyContent:'center',
+    marginLeft:25, 
+    width:150,
+    marginTop:10,
+    marginBottom:10,
+    height:60
+  },
+
+  commonTxt: {
+    fontSize: 60,
+    fontWeight: 'bold',
+    color:'skyblue'
+  }
 
 });
 
-module.exports = MotionApi;
+module.exports = EmotionApi;

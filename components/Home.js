@@ -72,7 +72,7 @@ class Home extends Component {
 
     //Generate a random emotion value
     var i = Math.floor((Math.random() * 8) + 1);
-
+    
     switch (i) {
     case 1:
       Config.randomEmotion = 'Angry';

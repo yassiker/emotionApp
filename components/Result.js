@@ -78,6 +78,7 @@ class Result extends Component {
     Config.emotion = '';
     Config.emotURL = '',
     Config.myurl = '';
+    Config.historyCnt = 3;
     var i = Math.floor((Math.random() * 8) + 1);
 
     switch (i) {
