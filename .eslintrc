@@ -20,9 +20,12 @@
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
+    "parserOptions": {
     "ecmaFeatures": {
-      "jsx": true
+        "jsx": true,
+        "modules": true
     }
+}
   },
   "rules": {
     "no-console": 0,

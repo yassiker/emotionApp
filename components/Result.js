@@ -6,17 +6,15 @@ import {
   View,
   Button,
   Text,
-  NavigationBar,
   Title,
   Icon,
   Tile,
   Image,
   Heading,
-  Caption 
+
 } from '@shoutem/ui';
 
 var Config = require('./Config');
-var MotionApi = require('./Config');
 let contempt = require('./imgs/emojs/contempt.jpeg');
 let fear = require('./imgs/emojs/fear.jpeg');
 let happy = require('./imgs/emojs/happy.jpeg');
@@ -26,22 +24,13 @@ let sad = require('./imgs/emojs/sad.jpeg');
 let angry = require('./imgs/emojs/angry.jpeg');
 let disgust = require('./imgs/emojs/disgust.jpeg');
 
+
 class Result extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      emotions: [
-        { title: Config.emotionArray[0] , value: Config.mydata[0] },
-        { title: Config.emotionArray[1] , value: Config.mydata[1] },
-        { title: Config.emotionArray[2] , value: Config.mydata[2] },
-        { title: Config.emotionArray[3] , value: Config.mydata[3] },
-        { title: Config.emotionArray[4] , value: Config.mydata[4] },
-        { title: Config.emotionArray[5] , value: Config.mydata[5] },
-        { title: Config.emotionArray[6] , value: Config.mydata[6] },
-        { title: Config.emotionArray[7] , value: Config.mydata[7] }
-      ],
-
+      title:'result',
     };
 
   }
@@ -51,35 +40,20 @@ class Result extends Component {
     return (
         
       <View>
-        <NavigationBar
-        leftComponent={<Button onPress={this.onBackPress.bind(this)} >
-            <Icon name="back" />
-            </Button>}
-        centerComponent={<Title>RESULT</Title>}
-        rightComponent={(
-            <Button styleName='clear' onPress={this.onHomePress.bind(this)}>
-            <Text>Home</Text>
-            </Button>
-        )}
-        />
-
-        <Tile style={{top:60}}>
+        <Tile >
         <Image
             styleName="large-portrait"
             source={{uri:Config.myurl}}
         >
         <Tile>
-          <Title>YOUR FACE EMOTION INDICATES THAT YOU LOOK</Title>
-          <Heading>{Config.emotion} BY</Heading>
-          <Heading>{(Config.emotionvalue*100).toFixed(2)}%</Heading>
+          <Title>YOUR Are</Title>
+          <Heading>{(Config.emotionvalue*100)}%</Heading>
+          <Heading>{Config.emotion} </Heading>
           <Button styleName="md-gutter-top" onPress={this.onBackPress.bind(this)}>
             <Icon name="refresh"/>
-            <Text>TRY AGAIN</Text>
+            <Text>Next</Text>
           </Button>
-          <Button styleName="md-gutter-top" onPress={this.onHistoryPress.bind(this)}>
-            <Icon name="sidebar"/>
-            <Text>{'  '} HISTORY</Text>
-          </Button>
+         
         </Tile>
       </Image>
  
@@ -90,24 +64,8 @@ class Result extends Component {
     );
   }
 
-  onCamPress() {
-
-    this.props.navigator.push({
-      id: 'MotionApi'
-    });
-
-  }
- 
-  onHistoryPress() {
-
-    this.props.navigator.push({
-      id: 'History'
-    });
-
-  }
-
   onHomePress() {
-
+    
     this.props.navigator.push({
       id: 'Home'
     });
@@ -115,13 +73,11 @@ class Result extends Component {
   }
 
   onBackPress() {
-    Config.mytimer = 3;
-    // randomly generating an emotion and coresponding icon
+
     Config.emotionvalue = 0;
     Config.emotion = '';
     Config.emotURL = '',
     Config.myurl = '';
-    // this.MotionApi.hellome.bind(this);
     var i = Math.floor((Math.random() * 8) + 1);
 
     switch (i) {
@@ -169,7 +125,7 @@ class Result extends Component {
 
     }
     this.props.navigator.push({
-      id: 'MotionApi'
+      id: 'MotionApi' 
     });
 
   }
@@ -177,7 +133,8 @@ class Result extends Component {
 
 
 Result.propTypes = {
-  navigator: PropTypes.object
+  navigator: PropTypes.object,
+  myvar: PropTypes.string,
 };
 
 

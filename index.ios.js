@@ -6,10 +6,7 @@ import {
 
 import MotionApi from './components/MotionApi';
 import Home from './components/Home';
-import Emotions from './components/Emotions';
 import Result from './components/Result';
-import History from './components/History';
-import Example from './components/Example';
 
 class motionApp extends Component { 
   constructor(props) {
@@ -25,7 +22,7 @@ class motionApp extends Component {
     return(
       <Navigator
         initialRoute = {{
-          id:'Example'
+          id:'Home'
         }}
         renderScene={
           this.NavigatorRenderScene
@@ -41,14 +38,9 @@ class motionApp extends Component {
       return(<MotionApi navigator = {navigator} title='MotionApi' />);
     case 'Home' :
       return(<Home navigator = {navigator} title='Home'/>);
-    case 'Emotions' :
-      return(<Emotions navigator = {navigator} title='Emotions'/>);
     case 'Result' :
-      return(<Result navigator = {navigator} title='Result'/>);
-    case 'History' :
-      return(<History navigator = {navigator} title='History'/>);
-    case 'Example' :
-      return(<Example navigator = {navigator} title='Example'/>);
+      return(<Result navigator = {navigator} title='Result' />);
+
 
     }
   }

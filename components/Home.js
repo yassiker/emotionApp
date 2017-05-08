@@ -69,11 +69,9 @@ class Home extends Component {
   }
 
   onButtonPress() {
+
+    //Generate a random emotion value
     var i = Math.floor((Math.random() * 8) + 1);
-    
-    /*Config.randomEmotion = 'Neutral';
-    Config.emotURL = neutral;
-    Config.index = 5;*/
 
     switch (i) {
     case 1:
@@ -119,9 +117,7 @@ class Home extends Component {
     default:
 
     }
-  
-    //alert('index is :' + Config.index);         
-    //Config.randomVal = 8;
+
     this.props.navigator.push({
       id: 'MotionApi',
       
