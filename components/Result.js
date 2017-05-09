@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 
 import { PropTypes } from 'prop-types';
+import {
+ 
+  View,
+  TouchableOpacity
+
+} from 'react-native';
 
 import {
-  View,
+
   Button,
   Text,
   Title,
@@ -23,6 +29,7 @@ let surprise = require('./imgs/emojs/surprise.jpeg');
 let sad = require('./imgs/emojs/sad.jpeg');
 let angry = require('./imgs/emojs/angry.jpeg');
 let disgust = require('./imgs/emojs/disgust.jpeg');
+let img1 = require('./imgs/homeS.png');
 
 
 class Result extends Component {
@@ -35,16 +42,29 @@ class Result extends Component {
 
   }
 
+  onBack() {
+
+    this.props.navigator.push({
+      id: 'Home'
+    });
+  }
+
   render() {
 
     return (
         
       <View>
         <Tile >
+        
         <Image
             styleName="large-portrait"
             source={{uri:Config.myurl}}
         >
+        <TouchableOpacity onPress={()  => this.onBack()} style={{backgroundColor:'skyblue',justifyContent:'center', marginLeft:25, width:32, marginTop:10,marginBottom:10, height:32, left:150,top:10}}>
+          <Image
+              source={img1}
+          />
+        </TouchableOpacity>
         <Tile>
           <Title>YOUR Are</Title>
           <Heading>{(Config.emotionvalue*100)}%</Heading>
@@ -125,7 +145,7 @@ class Result extends Component {
     default:
 
     }
-    this.props.navigator.push({
+    this.props.navigator.pop({
       id: 'MotionApi' 
     });
 

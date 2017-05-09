@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import {
-  TouchableHighlight,
+  
   Text,
   View,
   StyleSheet,
   Image,
   Button,
+  TouchableHighlight,
   TouchableOpacity
 
 } from 'react-native';
@@ -21,7 +22,7 @@ import {
 import Camera from 'react-native-camera';
 var Config = require('./Config');
 import RNFS from 'react-native-fs';
-let img1 = require('./imgs/homeicon.png');
+let img1 = require('./imgs/homeS.png');
 global.Buffer = global.Buffer || require('buffer').Buffer;
 const timer = require('react-native-timer');
 
@@ -69,14 +70,13 @@ class MotionApi extends Component {
 
   myalert() { 
 
-    alert('ddddddddd');
-    //num  = num + 1 ;
     if(this.state.counter === 0 ) {
       Config.randomEmotion = '';
-      alert('eeessssss');
+
       this.props.navigator.push({
         id: 'Result',
       });
+
       timer.clearInterval(this);
 
       this.setState({
@@ -98,63 +98,11 @@ class MotionApi extends Component {
     return Math.floor(Math.random() * (max - min)) + min;
   }
  
-  onBack() {
-
-    this.props.navigator.push({
-      id: 'Home'
-    });
-  }
+  
 
   render() {
 
-    if(this.state.showMsg === true) {
-      //alert('heeeey true');
-      return <View style={styles.container}> 
-        <Camera
-          ref={(cam) => {
-            this.camera = cam;
-          }}
-          style={styles.preview}
-          aspect={Camera.constants.Aspect.fill}
-          captureQuality={Camera.constants.CaptureQuality.high}
-          type={Camera.constants.Type.front}
-          captureTarget={Camera.constants.CaptureTarget.disk}>
-            
-            <Button title="" onPress = {this.onBack.bind(this)}>
-            <Image src={img1}/>
-            </Button>
-            <Tile styleName="text-centric" style={{marginLeft:150,marginBottom:100, marginRight:150, marginTop:0, backgroundColor:'transparent',borderColor:'black'}}>
-            <Text style={{top:200,color:'skyblue',borderColor:'black', borderWidth:5,fontWeight: 'bold',fontSize: 50,paddingTop: 20,borderRadius:275,width: 550,height:550,textAlign: 'center'}}></Text>           
-          
-          </Tile>
-          <Tile styleName="text-centric" style={{marginLeft:150,marginBottom:100, marginRight:150, marginTop:0, backgroundColor:'transparent'}}>
-            <Title styleName="md-gutter-bottom" style={{color:'skyblue',fontWeight: 'bold',fontSize: 25}}>{Config.randomEmotion.toUpperCase()}</Title>            
-          </Tile>
-
-          {this.state.showMsg ? ( 
-     
-             <Text style={{fontSize: 60,fontWeight: 'bold',color:'skyblue'}}>{this.state.counter}</Text>  
-        
-        ) : (
-          <Text style={{fontSize: 60,fontWeight: 'bold',color:'skyblue'}}></Text>
-        )}
-
-          <TouchableOpacity onPress={()  => this.takePicture()} style={{backgroundColor:'skyblue',justifyContent:'center', marginLeft:25, width:150, marginTop:10,marginBottom:10, height:60}}>
-            <Text style={{marginLeft:30,fontSize: 20,fontWeight: 'bold',}}>Capture</Text>
-          </TouchableOpacity>
-
-            
-        </Camera>
-
-      </View>;
-
-    }else {
-      //alert('heeeey false');
-      return <View><Text>not here </Text></View>;
-    }
-
-
-    /*return (
+    return (
       
       <View style={styles.container}> 
         <Camera
@@ -166,12 +114,9 @@ class MotionApi extends Component {
           captureQuality={Camera.constants.CaptureQuality.high}
           type={Camera.constants.Type.front}
           captureTarget={Camera.constants.CaptureTarget.disk}>
-            
-            <Button title="" onPress = {this.onBack.bind(this)}>
-            <Image src={img1}/>
-            </Button>
-            <Tile styleName="text-centric" style={{marginLeft:150,marginBottom:100, marginRight:150, marginTop:0, backgroundColor:'transparent',borderColor:'black'}}>
-            <Text style={{top:200,color:'skyblue',borderColor:'black', borderWidth:5,fontWeight: 'bold',fontSize: 50,paddingTop: 20,borderRadius:275,width: 550,height:550,textAlign: 'center'}}></Text>           
+
+          <Tile styleName="text-centric" style={{marginLeft:150,marginBottom:100, marginRight:150, marginTop:0, backgroundColor:'transparent',borderColor:'black'}}>
+          <Text style={{top:200,color:'skyblue',borderColor:'black', borderWidth:5,fontWeight: 'bold',fontSize: 50,paddingTop: 20,borderRadius:275,width: 550,height:550,textAlign: 'center'}}></Text>           
           
           </Tile>
           <Tile styleName="text-centric" style={{marginLeft:150,marginBottom:100, marginRight:150, marginTop:0, backgroundColor:'transparent'}}>
@@ -189,21 +134,19 @@ class MotionApi extends Component {
           <TouchableOpacity onPress={()  => this.takePicture()} style={{backgroundColor:'skyblue',justifyContent:'center', marginLeft:25, width:150, marginTop:10,marginBottom:10, height:60}}>
             <Text style={{marginLeft:30,fontSize: 20,fontWeight: 'bold',}}>Capture</Text>
           </TouchableOpacity>
-
-            
+          
         </Camera>
 
       </View>
-    );*/
+    );
   }
 
   takePicture() {
  
     this.setState({showMsg: true}, () => timer.setInterval(
-      this, 'hideMsg', this.myalert.bind(this), 500
+      this, 'hideMsg', this.myalert.bind(this), 1000
     ));
     
-
     const options = {};
     this.camera.capture([options])
       .then((data) => {
@@ -238,7 +181,7 @@ class MotionApi extends Component {
               .then(function(responseData) {
                 return responseData; })
                 .then((data) => {
-
+                  
                   switch (Config.index) {
                   case 0:
                     Config.emotionvalue = data[0].scores.anger;
@@ -275,22 +218,6 @@ class MotionApi extends Component {
                   default:
 
                   }
-                  
-                  //console.log(data);
-                  /*if(this.state.counter == 0) {
-                    this.props.navigator.push({
-                      id: 'Result',
-                      myvar: '10',
-                    });
-
-                  }*/
-                  
-
-                  /*this.setState({
-                    counter : 3,
-                    showMsg: false, 
-                  });*/
-
 
                 }).catch(function(err) {
                   console.log(err);
