@@ -21,6 +21,7 @@ import {
 } from '@shoutem/ui';
 
 var Config = require('./Config');
+import { getRandomEmotion } from '../config/emotions';
 let contempt = require('./imgs/emojs/contempt.jpeg');
 let fear = require('./imgs/emojs/fear.jpeg');
 let happy = require('./imgs/emojs/happy.jpeg');
@@ -50,6 +51,7 @@ class Result extends Component {
   }
 
   render() {
+    
 
     return (
         
@@ -85,7 +87,7 @@ class Result extends Component {
   }
 
   onHomePress() {
-    
+    alert('emotion score is : ' + this.props.emotionscore);
     this.props.navigator.push({
       id: 'Home'
     });
@@ -101,7 +103,9 @@ class Result extends Component {
     Config.historyCnt = 3;
     var i = Math.floor((Math.random() * 8) + 1);
 
-    switch (i) {
+    var myemotion = getRandomEmotion();
+
+    /*switch (i) {
     case 1:
       Config.randomEmotion = 'Angry';
       Config.emotURL = angry;
@@ -144,9 +148,11 @@ class Result extends Component {
       break;
     default:
 
-    }
-    this.props.navigator.pop({
-      id: 'MotionApi' 
+  }*/
+  
+    this.props.navigator.push({
+      id: 'MotionApi', 
+      passProps:{emotion: myemotion.emotionKey}
     });
 
   }
@@ -156,6 +162,8 @@ class Result extends Component {
 Result.propTypes = {
   navigator: PropTypes.object,
   myvar: PropTypes.string,
+  emotionscore : PropTypes.number
+
 };
 
 

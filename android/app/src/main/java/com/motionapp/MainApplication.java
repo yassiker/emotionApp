@@ -3,14 +3,14 @@ package com.motionapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.reactnative.photoview.PhotoViewPackage;
-import cl.json.RNSharePackage;
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
 import com.rnfs.RNFSPackage;
 import com.benwixen.rnfilesystem.RNFileSystemPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
+import com.reactnative.photoview.PhotoViewPackage;
+import cl.json.RNSharePackage;
+import com.BV.LinearGradient.LinearGradientPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -31,14 +31,14 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new PhotoViewPackage(),
-            new RNSharePackage(),
-            new LinearGradientPackage(),
-            new VectorIconsPackage(),
             new RNFSPackage(),
             new RNFileSystemPackage(),
             new RNFetchBlobPackage(),
-            new RCTCameraPackage()
+            new RCTCameraPackage(),
+            new PhotoViewPackage(),
+            new RNSharePackage(),
+            new LinearGradientPackage(),
+            new VectorIconsPackage()
       );
     }
   };
