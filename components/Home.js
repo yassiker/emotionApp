@@ -16,22 +16,12 @@ import {
 
 import Popup from 'react-native-popup';
 import { getRandomEmotion } from '../config/emotions';
-var Config = require('./Config');
 let img1 = require('./imgs/backEm.jpg');
-
-let contempt = require('./imgs/emojs/contempt.jpeg');
-let fear = require('./imgs/emojs/fear.jpeg');
-let happy = require('./imgs/emojs/happy.jpeg');
-let neutral = require('./imgs/emojs/neutral.jpeg');
-let surprise = require('./imgs/emojs/surprise.jpeg');
-let sad = require('./imgs/emojs/sad.jpeg');
-let angry = require('./imgs/emojs/angry.jpeg');
-let disgust = require('./imgs/emojs/disgust.jpeg');
 
 class Home extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       showView: true
     };
@@ -72,68 +62,24 @@ class Home extends Component {
 
   onButtonPress() {
 
-    var myemotion = getRandomEmotion();
-
-    //alert('random value is ' + myemotion.emotionName);
-    //alert('random value is ' + myemotion.emotionKey);
-
-    //Generate a random emotion value
-    //var i = Math.floor((Math.random() * 8) + 1);
-
-    /* switch (i) {
-     case 1:
-       Config.randomEmotion = 'Angry';
-       Config.index = 0;
-       break;
-     case 2:
-       Config.randomEmotion = 'Contempt';
-       Config.index = 1;
-       break;
-     case 3:
-       Config.randomEmotion = 'Disgust';
-       Config.index = 2;
-       break;
-     case 4:
-       Config.randomEmotion = 'Scared';
-       Config.index = 3;
-       break;
-     case 5:
-       Config.randomEmotion = 'Happy';
-       Config.index = 4;
-       break;
-     case 6:
-       Config.randomEmotion = 'Neutral';
-       Config.index = 5;
-       break;
-     case 7:
-       Config.randomEmotion = 'Sad';
-       Config.index = 6;
-       break;
-     case 8:
-       Config.randomEmotion = 'Surprise';
-       Config.index = 7;
-       break;
-     default:
- 
-     }*/
-
+    this.props.myemotion = getRandomEmotion();
     this.props.navigator.push({
       id: 'MotionApi',
       passProps:{
-        emotionKey: myemotion.emotionKey,
-        emotionName: myemotion.emotionName,
-        myemotion
+        myemotion : this.props.myemotion
       }
       
 
     });
-
+    
   }
 }
 
 
 Home.propTypes = {
   navigator: PropTypes.object,
+  emotionObj: PropTypes.object,
+  myemotion: PropTypes.object,
 };
 
 const styleTypes = {

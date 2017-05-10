@@ -1360,12 +1360,12 @@
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-share/ios",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
-					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios",
 					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
-					"$(SRCROOT)/../node_modules/react-native-fs/**",
-					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-fs",
+					"$(SRCROOT)/../node_modules/react-native/React",
 					"$(SRCROOT)/../node_modules/react-native/React/Base",
-					"$(inherited)/**",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = motionApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1392,12 +1392,12 @@
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-share/ios",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
-					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios",
 					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
-					"$(SRCROOT)/../node_modules/react-native-fs/**",
-					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-fs",
+					"$(SRCROOT)/../node_modules/react-native/React",
 					"$(SRCROOT)/../node_modules/react-native/React/Base",
-					"$(inherited)/**",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = motionApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
