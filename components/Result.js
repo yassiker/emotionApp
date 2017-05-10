@@ -41,7 +41,7 @@ class Result extends Component {
   }
 
   render() {
-    
+
     return (
         
       <View>
@@ -57,11 +57,10 @@ class Result extends Component {
         > 
         <Tile>
           <Title>YOUR Are</Title>
-          <Heading>{Config.emotionvalue}</Heading>
-          <Heading></Heading>
+          <Heading>{Config.emotionV}</Heading>
           <Button styleName="md-gutter-top" onPress={this.onBackPress.bind(this)}>
             <Icon name="refresh"/>
-            <Text>Next</Text>
+            <Text>Next</Text>         
           </Button>
          
         </Tile>
@@ -96,7 +95,8 @@ class Result extends Component {
 Result.propTypes = {
   navigator: PropTypes.object,
   myvar: PropTypes.string,
-  emotionscore : PropTypes.number
+  emotionscore : PropTypes.number,
+
 
 };
 

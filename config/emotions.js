@@ -23,8 +23,10 @@ class MotionConfig {
   }
 
   extractEmotionScore(scores) {
-    var keyme = this.emotionKey;
-    this.emotionScore = scores.keyme;
+    //var keyme = this.emotionKey;
+    //alert(keyme + '  valueee '  + scores.anger);
+    //alert(keyme + '  secondValue '  + scores[this.emotionKey]);
+    return this.emotionScore = scores[this.emotionKey];
   }
 }
 

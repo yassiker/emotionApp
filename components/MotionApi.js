@@ -12,6 +12,7 @@ import {
 import {
 
   Title,
+  Image
 
 } from '@shoutem/ui';
 
@@ -20,7 +21,9 @@ import Camera from 'react-native-camera';
 var Config = require('./Config');
 import { getRandomEmotion } from '../config/emotions';
 import RNFS from 'react-native-fs';
+var img = require('./imgs/myframe.png');
 //global.Buffer = global.Buffer || require('buffer').Buffer;
+
 
 
 class MotionApi extends Component {
@@ -29,6 +32,7 @@ class MotionApi extends Component {
     super(props);
 
     this.state = {
+      showEmotion: true,
       showMsg: false,
       emotion: '',
       emotionvalue: 0,
@@ -45,7 +49,6 @@ class MotionApi extends Component {
 
     return (
 
-
       <View style={styles.container}>
         <Camera
           ref={(cam) => {
@@ -56,11 +59,25 @@ class MotionApi extends Component {
           captureQuality={Camera.constants.CaptureQuality.high}
           type={Camera.constants.Type.front}
           captureTarget={Camera.constants.CaptureTarget.disk}>
+          <Image
+            styleName="large-square"
+            source={img}
+            style={{ bottom: 150 }}
+          />
+
+          {this.state.showEmotion ? (
+            <Title styleName="md-gutter-bottom" style={{ color: 'skyblue', fontWeight: 'bold', fontSize: 25, left: 5 }}>{this.props.myemotion.emotionKey}</Title>
+          ) : (
+              <Title styleName="md-gutter-bottom" style={{ color: 'skyblue', fontWeight: 'bold', fontSize: 25, left: 5 }}></Title>
+            )
+
+          }
+
 
           {this.state.showMsg ? (
             <View>
-              <Title styleName="md-gutter-bottom" style={{ color: 'skyblue', fontWeight: 'bold', fontSize: 25, left:5 }}>{this.state.myobject.emotionName}</Title>
-              <Text style={{ fontSize: 60, fontWeight: 'bold', color: 'skyblue', left:5 }}>{this.state.counter}</Text>
+
+              <Text style={{ fontSize: 60, fontWeight: 'bold', color: 'skyblue', left: 5 }}>{this.state.counter}</Text>
             </View>
           ) : (
               null
@@ -76,21 +93,36 @@ class MotionApi extends Component {
     );
   }
 
-  startProcess = () => {
+  navigate() {
+    this.props.navigator.replace({
+      id: 'Result',
+      passProps:{
+        emotionscore : this.state.emotionvalue
+      }
+    });
+  }
+  startProcess = async () => {
 
-    this.setState({ showMsg: true });
+    this.props.myemotion = getRandomEmotion();
+    this.setState({
+      showMsg: true,
+      myobject: this.props.myemotion,
+    });
     this.takePictureInterval = setInterval(() => {
       if (this.state.counter === 0) {
+        //this.props.myemotion.emotionKey = null;
         clearInterval(this.takePictureInterval);
+        
         this.takePicture();
-        this.props.navigator.push({
-          id: 'Result',
-        });
-         
+        //Calling an new component
+        this.navigate();
+       
+
         this.setState({
           counter: 3,
+          showEmotion: false,
           myobject: getRandomEmotion(),
-        });     
+        });
 
       } else {
         this.setState({
@@ -102,7 +134,7 @@ class MotionApi extends Component {
 
   }
 
-  sendImageToAnalysis = (array) => {
+  sendImageToAnalysis =  (array) => {
 
     fetch('https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize?*', {
       method: 'POST',
@@ -117,13 +149,16 @@ class MotionApi extends Component {
         return response.json();
       })
       .then((data) => {
-        return data;
-        /*var _k = this.state.myobject.emotionKey;
-        //alert(this.state.myobject.emotionKey);
-        Config.emotionvalue = data[0].scores.this.state.myobject.emotionKey;
-        var result = this.state.myobject.extractEmotionScore(data[0].scores);
-        //alert(result.emotionScore);*/
+        Config.emotionV = data[0].scores.this.props.myemotion.emotionKey;
+        var retValue = this.props.myemotion.extractEmotionScore(data[0].scores);
+        //Config.emotionvalue = retValue;
+        alert('value is  ' + Config.emotionV);
 
+        this.setState({
+          emotionvalue : retValue
+        });
+   
+        
       }).catch(function (err) {
         console.log(err);
       });
@@ -151,8 +186,8 @@ class MotionApi extends Component {
               array[i] = buffer.charCodeAt(i);
             }
 
-            return  this.sendImageToAnalysis(array);
-            
+            return this.sendImageToAnalysis(array);
+
           });
       })
       .catch(err => console.error(err));
@@ -177,32 +212,9 @@ const styles = StyleSheet.create({
   preview: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center'
   },
-
-  capture: {
-    backgroundColor: 'skyblue',
-    marginBottom: 20,
-    marginTop: 20,
-    width: 140,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingBottom: 25,
-    paddingLeft: 10,
-    paddingRight: 10,
-
-  },
-  buttonText: {
-    fontWeight: 'bold',
-    fontSize: 25
-  },
-
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover',
-  }
-
 
 });
 

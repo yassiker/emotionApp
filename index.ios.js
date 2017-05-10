@@ -36,11 +36,11 @@ class motionApp extends Component {
 
     switch (route.id) {
     case 'MotionApi':
-      return (<MotionApi {...route.passProps} navigator={navigator} title='MotionApi' />);
+      return (<MotionApi navigator={navigator} title='MotionApi' myemotion={getRandomEmotion()} />);
     case 'Home':
       return (<Home navigator={navigator} title='Home' myemotion={getRandomEmotion()} />);
     case 'Result':
-      return (<Result navigator={navigator} title='Result' emotion='emotion' emotionscore={0} />);
+      return (<Result navigator={navigator} title='Result' emotion='emotion' emotionscore={ 18 } />);
 
 
     }
