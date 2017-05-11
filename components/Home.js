@@ -62,13 +62,8 @@ class Home extends Component {
 
   onButtonPress() {
 
-    //this.props.myemotion = getRandomEmotion();
     this.props.navigator.push({
-      id: 'MotionApi',
-      /*passProps:{
-        myemotion : this.props.myemotion
-      }*/
-      
+      id: 'Test',
 
     });
     

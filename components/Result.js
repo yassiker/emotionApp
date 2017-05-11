@@ -29,6 +29,7 @@ class Result extends Component {
     super(props);
     this.state = {
       title:'result',
+      myvalue : Config.emotionV
     };
 
   }
@@ -72,7 +73,7 @@ class Result extends Component {
   }
 
   onHomePress() {
-    alert('emotion score is : ' + this.props.emotionscore);
+    //alert('emotion score is : ' + this.props.emotionscore);
     this.props.navigator.push({
       id: 'Home'
     });

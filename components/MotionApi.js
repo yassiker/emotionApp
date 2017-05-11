@@ -40,15 +40,21 @@ class MotionApi extends Component {
       mylook: '',
       counter: 3,
       myvar: 0,
-      myobject: getRandomEmotion()
+      myobject : {}
     };
 
   }
 
+
+  myrender() {
+    return(
+      <Title styleName="md-gutter-bottom" style={{ color: 'skyblue', fontWeight: 'bold', fontSize: 25, left: 5 }}>fffff {this.state.myobject.emotionKey}</Title>
+    );
+
+  }
   render() {
 
     return (
-
       <View style={styles.container}>
         <Camera
           ref={(cam) => {
@@ -62,66 +68,45 @@ class MotionApi extends Component {
           <Image
             styleName="large-square"
             source={img}
-            style={{ bottom: 150 }}
-          />
-
-          {this.state.showEmotion ? (
-            <Title styleName="md-gutter-bottom" style={{ color: 'skyblue', fontWeight: 'bold', fontSize: 25, left: 5 }}>{this.props.myemotion.emotionKey}</Title>
-          ) : (
-              <Title styleName="md-gutter-bottom" style={{ color: 'skyblue', fontWeight: 'bold', fontSize: 25, left: 5 }}></Title>
-            )
-
-          }
-
-
-          {this.state.showMsg ? (
-            <View>
-
-              <Text style={{ fontSize: 60, fontWeight: 'bold', color: 'skyblue', left: 5 }}>{this.state.counter}</Text>
-            </View>
-          ) : (
-              null
-            )}
-
+            />
+          <Title styleName="md-gutter-bottom" style={{ color: 'skyblue', fontWeight: 'bold', fontSize: 25, left: 5 }}></Title>
+          <Text style={{ fontSize: 60, fontWeight: 'bold', color: 'skyblue', left: 5 }}>{this.state.counter}</Text>
           <TouchableOpacity onPress={this.startProcess} style={{ backgroundColor: 'skyblue', justifyContent: 'center', marginLeft: 25, width: 150, marginTop: 10, marginBottom: 10, height: 60 }}>
             <Text style={{ marginLeft: 30, fontSize: 20, fontWeight: 'bold', }}>Capture</Text>
           </TouchableOpacity>
-
         </Camera>
-
       </View>
     );
   }
 
   navigate() {
-    this.props.navigator.replace({
+    this.props.navigator.push({
       id: 'Result',
       passProps:{
         emotionscore : this.state.emotionvalue
       }
     });
   }
+
+// Start the process
   startProcess = async () => {
 
     this.props.myemotion = getRandomEmotion();
+    // Set the state of myobject to have an instance
     this.setState({
-      showMsg: true,
-      myobject: this.props.myemotion,
+      myobject : getRandomEmotion(),
     });
+
+    this.myrender();
+
     this.takePictureInterval = setInterval(() => {
       if (this.state.counter === 0) {
-        //this.props.myemotion.emotionKey = null;
-        clearInterval(this.takePictureInterval);
-        
+        clearInterval(this.takePictureInterval);     
         this.takePicture();
-        //Calling an new component
-        this.navigate();
-       
 
         this.setState({
           counter: 3,
           showEmotion: false,
-          myobject: getRandomEmotion(),
         });
 
       } else {
@@ -149,16 +134,12 @@ class MotionApi extends Component {
         return response.json();
       })
       .then((data) => {
-        Config.emotionV = data[0].scores.this.props.myemotion.emotionKey;
-        var retValue = this.props.myemotion.extractEmotionScore(data[0].scores);
-        //Config.emotionvalue = retValue;
-        alert('value is  ' + Config.emotionV);
-
+        Config.emotionV = data[0].scores.this.state.myobject.emotionKey;
+        alert(Config.emotionV);
         this.setState({
-          emotionvalue : retValue
+          emotionvalue : Config.emotionV
         });
-   
-        
+         
       }).catch(function (err) {
         console.log(err);
       });
@@ -191,8 +172,10 @@ class MotionApi extends Component {
           });
       })
       .catch(err => console.error(err));
-
+    //this.navigate();
   }
+
+  
 
 }
 

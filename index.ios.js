@@ -7,7 +7,8 @@ import {
 import MotionApi from './components/MotionApi';
 import Home from './components/Home';
 import Result from './components/Result';
-import { getRandomEmotion } from './config/emotions';
+import Test from './components/Test';
+
 
 class motionApp extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class motionApp extends Component {
         }}
         renderScene={
           this.NavigatorRenderScene
-        }
+        } 
       />
     );
   }
@@ -36,11 +37,15 @@ class motionApp extends Component {
 
     switch (route.id) {
     case 'MotionApi':
-      return (<MotionApi navigator={navigator} title='MotionApi' myemotion={getRandomEmotion()} />);
+      return (<MotionApi navigator={navigator} title='MotionApi' />);
     case 'Home':
-      return (<Home navigator={navigator} title='Home' myemotion={getRandomEmotion()} />);
+      return (<Home navigator={navigator} title='Home' />);
     case 'Result':
-      return (<Result navigator={navigator} title='Result' emotion='emotion' emotionscore={ 18 } />);
+      return (<Result navigator={navigator} title='Result' />);
+    case 'Test':
+      return (<Test navigator={navigator} title='Test'/>);
+    case 'Test2':
+  
 
 
     }
