@@ -37,16 +37,13 @@ class motionApp extends Component {
 
     switch (route.id) {
     case 'MotionApi':
-      return (<MotionApi navigator={navigator} title='MotionApi' />);
+      return (<MotionApi navigator={navigator} title='MotionApi'  />);
     case 'Home':
       return (<Home navigator={navigator} title='Home' />);
     case 'Result':
-      return (<Result navigator={navigator} title='Result' />);
+      return (<Result navigator={navigator} title='Result' {... route.props}/>);
     case 'Test':
       return (<Test navigator={navigator} title='Test'/>);
-    case 'Test2':
-  
-
 
     }
   }

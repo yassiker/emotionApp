@@ -4,7 +4,8 @@ import { PropTypes } from 'prop-types';
 import {
  
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  StyleSheet
 
 } from 'react-native';
 
@@ -18,11 +19,12 @@ import {
   Image,
   Heading,
 
+
 } from '@shoutem/ui';
 
 var Config = require('./Config');
 let img1 = require('./imgs/homeS.png');
-
+import { getRandomEmotion } from '../config/emotions';
 class Result extends Component {
 
   constructor(props) {
@@ -31,9 +33,11 @@ class Result extends Component {
       title:'result',
       myvalue : Config.emotionV
     };
-
+   
   }
 
+ 
+  
   onBack() {
 
     this.props.navigator.push({
@@ -45,20 +49,18 @@ class Result extends Component {
 
     return (
         
-      <View>
+      <View style={styles.container}>
         <Tile >
-        <TouchableOpacity onPress={()  => this.onBack()} style={{backgroundColor:'skyblue',justifyContent:'center', marginLeft:25, width:32, marginTop:10,marginBottom:10, height:32, left:300,top:50, zIndex: 1}}>
-          <Image
-              source={img1}
-          />
-        </TouchableOpacity>
+        
         <Image
             styleName="large-portrait"
             source={{uri:Config.myurl}}
         > 
+        
         <Tile>
           <Title>YOUR Are</Title>
-          <Heading>{Config.emotionV}</Heading>
+          <Heading>{Config.emotionV*100}%</Heading>
+          <Heading>{Config.randomEmotion}</Heading>
           <Button styleName="md-gutter-top" onPress={this.onBackPress.bind(this)}>
             <Icon name="refresh"/>
             <Text>Next</Text>         
@@ -72,22 +74,24 @@ class Result extends Component {
     );
   }
 
-  onHomePress() {
-    //alert('emotion score is : ' + this.props.emotionscore);
-    this.props.navigator.push({
-      id: 'Home'
-    });
-
-  }
-
   onBackPress() {
 
     //var myobject = getRandomEmotion();
     //alert(myobject.emotionKey);
-    this.props.navigator.push({
-      id: 'MotionApi', 
-      
-    });
+    Config.showMsg = true;
+    Config.emt = getRandomEmotion().emotionName;
+    Config.key = getRandomEmotion().emotionKey;
+    if(Config.emt === null) {
+      alert('ddddd');
+    }else{
+      this.props.navigator.pop({
+        id: 'Test', 
+        props: {
+          myprop: 'fffff'
+        }
+      });
+    }
+    
 
   }
 }
@@ -101,7 +105,14 @@ Result.propTypes = {
 
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+  },
 
+
+});
 
 module.exports = Result;
 

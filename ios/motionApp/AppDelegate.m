@@ -12,7 +12,8 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
-@implementation AppD  Delegate
+
+@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

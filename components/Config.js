@@ -11,6 +11,9 @@ module.exports = {
   picHistory: [],
   historyCnt:3,
   mytimer :3,
+  showMsg: true,
+  emt: 'Happy',
+  key: 'happy'
 
   
 };
