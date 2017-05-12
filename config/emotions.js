@@ -2,10 +2,10 @@ const availableEmotions = [
   { name: 'Angry', key: 'anger' },
   { name: 'Contempt', key: 'contempt' },
   { name: 'Disgust', key: 'disgust' },
-  { name: 'Scared', key: 'scared' },
-  { name: 'Happy', key: 'happy' },
+  { name: 'Scared', key: 'fear' },
+  { name: 'Happy', key: 'happiness' },
   { name: 'Neutral', key: 'neutral' },
-  { name: 'Sad', key: 'sad' },
+  { name: 'Sad', key: 'sadness' },
   { name: 'Surprise', key: 'surprise' },
 
 ];
@@ -23,19 +23,8 @@ class MotionConfig {
   }
 
   extractEmotionScore(scores) {
-    //var keyme = this.emotionKey;
-    //alert(keyme + '  valueee '  + scores.anger);
-    //alert(keyme + '  secondValue '  + scores[this.emotionKey]);
     return this.emotionScore = scores[this.emotionKey];
   }
 }
-
-// step 1: from list of available emotions, take one
-// step 2: pass it into MotionApi
-
-// step 3: take result from api and add it into motion config
-// step 4: pass motion config to result
-
-// step 5: based on received motion config, show the result
 
 

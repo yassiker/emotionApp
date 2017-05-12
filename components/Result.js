@@ -50,16 +50,16 @@ class Result extends Component {
         > 
         
         <Tile>
-          <Title style = {styles.title}>YOU ARE</Title>
-          <Title style = {styles.title}>{(Config.emotionV*100).toFixed(4)}%</Title>
-          <Title style = {styles.title}>{Config.randomEmotion}</Title>
+          <Title styleName="md-gutter-bottom" style={{paddingTop:10, fontSize: 30, fontWeight: 'bold' }}>YOU ARE</Title>
+          <Title styleName="md-gutter-bottom" style={{paddingTop:10, fontSize: 30, fontWeight: 'bold' }}>{(Config.emotion*100).toFixed(4)}%</Title>
+          <Title styleName="md-gutter-bottom" style={{paddingTop:10, fontSize: 30, fontWeight: 'bold' }}>{Config.randomEmotion}</Title>
           <Button styleName="md-gutter-top" onPress={() => this.onBackPress()}>
             <Icon name="refresh"/>
             <Text>Try Again</Text>         
           </Button>
           <Button styleName="md-gutter-top" onPress={() => this.onHomePress()}>
             <Icon name="laptop"/>
-            <Text>   Home   </Text>         
+            <Text>   Home    </Text>         
           </Button>
         </Tile>
       </Image>
@@ -115,10 +115,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
 
-  title: {
-    fontSize: 60, 
-    fontWeight: 'bold'
-  }
 });
 
 module.exports = Result;

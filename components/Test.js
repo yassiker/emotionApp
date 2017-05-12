@@ -78,20 +78,17 @@ class Test extends Component {
                     return response.json();
                   })
                   .then((data) => {
+
                     console.log(data);
                     var mykey = Config.key;
-                    if (mykey === Config.key) {      
-                      Config.emotionV = data[0].scores[Config.key];
-                      alert('key is: ' + this.props.key);
+                    if (mykey === Config.key) {    
+                      Config.emotion = data[0].scores[Config.key];
                       Config.randomEmotion = Config.emt;
-                      //this.props.key = 'dd';
+                      mykey = '';
                     }
-                    else { alert('Something is wrong'); }
 
                   })
                   .then(() => {
-
-                    alert('then me');
                     this.setState({
                       temp: 3,
                     });

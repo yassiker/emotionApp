@@ -24,7 +24,7 @@ class motionApp extends Component {
     return (
       <Navigator
         initialRoute={{
-          id: 'Home'
+          id: 'Result'
         }}
         renderScene={
           this.NavigatorRenderScene

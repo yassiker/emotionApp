@@ -43,13 +43,13 @@ class Home extends Component {
           style={styleTypes.backgroundImage}
         >
           <Tile>
-            <Title styleName="md-gutter-bottom" style={{ marginBottom: 20, bottom: 150, fontSize: 20, fontWeight: 'bold' }}>EMOTION RECOGNITION</Title>
-            <Title styleName="md-gutter-bottom" style={{ marginBottom: 200, bottom: 150, fontSize: 20, fontWeight: 'bold' }}>ANGER, HAPPINESS, SADNESS, AND MORE ...</Title>
+            <Title styleName="md-gutter-bottom" style={{bottom: 200,fontSize: 20, fontWeight: 'bold' }}>EMOTION RECOGNITION</Title>
+            <Title styleName="md-gutter-bottom" style={{ bottom: 150, fontSize: 20, fontWeight: 'bold' }}>ANGER, HAPPINESS, SADNESS, AND MORE ...</Title>
             <Button styleName="dark" onPress={this.onButtonPress.bind(this)} style={{ top: 100, width: 130 }}>
               <Text style={{ fontSize: 20, fontWeight: 'bold', }}>START</Text>
             </Button>
             <Overlay styleName="solid-bright" style={{ top: 120, height: 50 }}>
-              <Subtitle styleName="sm-gutter-horizontal" style={{ fontSize: 20, fontWeight: 'bold', }}>TO CHALLEGNE YOUR FACE EMOTION</Subtitle>
+              <Subtitle styleName="sm-gutter-horizontal" style={{ paddingTop:5,fontSize: 20, fontWeight: 'bold', }}>TO CHALLEGNE YOUR FACE EMOTIONS</Subtitle>
             </Overlay>
           </Tile>
         </Image>
