@@ -4,10 +4,9 @@ import {
   Navigator,
 } from 'react-native';
 
-import MotionApi from './components/MotionApi';
+import EmotionApi from './components/EmotionApi';
 import Home from './components/Home';
 import Result from './components/Result';
-import Test from './components/Test';
 
 
 class motionApp extends Component {
@@ -24,7 +23,7 @@ class motionApp extends Component {
     return (
       <Navigator
         initialRoute={{
-          id: 'Result'
+          id: 'Home'
         }}
         renderScene={
           this.NavigatorRenderScene
@@ -36,14 +35,13 @@ class motionApp extends Component {
   NavigatorRenderScene(route, navigator) {
 
     switch (route.id) {
-    case 'MotionApi':
-      return (<MotionApi navigator={navigator} title='MotionApi'  />);
+
     case 'Home':
       return (<Home navigator={navigator} title='Home' />);
     case 'Result':
       return (<Result navigator={navigator} title='Result' {... route.props}/>);
-    case 'Test':
-      return (<Test navigator={navigator} title='Test'/>);
+    case 'EmotionApi':
+      return (<EmotionApi navigator={navigator} title='EmotionApi'/>);
 
     }
   }

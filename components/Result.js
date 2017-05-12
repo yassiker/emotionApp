@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { PropTypes } from 'prop-types';
 import {
  
@@ -21,6 +20,7 @@ import {
 
 var Config = require('./Config');
 import { getRandomEmotion } from '../config/emotions';
+
 class Result extends Component {
 
   constructor(props) {
@@ -32,7 +32,7 @@ class Result extends Component {
    
   }
 
-  onBack() {
+  onBack = () => {
 
     this.props.navigator.push({
       id: 'Home'
@@ -69,7 +69,7 @@ class Result extends Component {
     );
   }
 
-  onHomePress () {
+  onHomePress = () => {
 
     this.props.navigator.pop({
       id: 'Home'
@@ -80,10 +80,7 @@ class Result extends Component {
 
     if(Config.key != null) {
       this.props.navigator.pop({
-        id: 'Test', 
-        props: {
-          key: 'try'
-        }
+        id: 'EmotionApi', 
       });
     }
   }
@@ -104,9 +101,6 @@ class Result extends Component {
 
 Result.propTypes = {
   navigator: PropTypes.object,
-  myvar: PropTypes.string,
-  key : PropTypes.string
-
 };
 
 const styles = StyleSheet.create({

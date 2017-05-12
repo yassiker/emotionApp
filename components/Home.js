@@ -15,7 +15,6 @@ import {
 } from '@shoutem/ui';
 
 import Popup from 'react-native-popup';
-//import { getRandomEmotion } from '../config/emotions';
 let img1 = require('./imgs/backEm.jpg');
 
 class Home extends Component {
@@ -25,12 +24,6 @@ class Home extends Component {
     this.state = {
       showView: true
     };
-  }
-
-  removeView() {
-    this.setState({
-      showView: false
-    });
   }
 
   render() {
@@ -45,7 +38,7 @@ class Home extends Component {
           <Tile>
             <Title styleName="md-gutter-bottom" style={{bottom: 200,fontSize: 20, fontWeight: 'bold' }}>EMOTION RECOGNITION</Title>
             <Title styleName="md-gutter-bottom" style={{ bottom: 150, fontSize: 20, fontWeight: 'bold' }}>ANGER, HAPPINESS, SADNESS, AND MORE ...</Title>
-            <Button styleName="dark" onPress={this.onButtonPress.bind(this)} style={{ top: 100, width: 130 }}>
+            <Button styleName="dark" onPress={this.onButtonPress.bind(this)} style={{ marginBottom:100,top: 200, width: 130 }}>
               <Text style={{ fontSize: 20, fontWeight: 'bold', }}>START</Text>
             </Button>
             <Overlay styleName="solid-bright" style={{ top: 120, height: 50 }}>
@@ -60,21 +53,18 @@ class Home extends Component {
     );
   }
 
-  onButtonPress() {
+  onButtonPress = () =>  {
 
     this.props.navigator.push({
-      id: 'Test',
+      id: 'EmotionApi',
 
     });
     
   }
 }
 
-
 Home.propTypes = {
   navigator: PropTypes.object,
-  emotionObj: PropTypes.object,
-  myemotion: PropTypes.object,
 };
 
 const styleTypes = {
