@@ -4,7 +4,6 @@ import { PropTypes } from 'prop-types';
 import {
  
   View,
-  TouchableOpacity,
   StyleSheet
 
 } from 'react-native';
@@ -17,13 +16,10 @@ import {
   Icon,
   Tile,
   Image,
-  Heading,
-
 
 } from '@shoutem/ui';
 
 var Config = require('./Config');
-let img1 = require('./imgs/homeS.png');
 import { getRandomEmotion } from '../config/emotions';
 class Result extends Component {
 
@@ -36,8 +32,6 @@ class Result extends Component {
    
   }
 
- 
-  
   onBack() {
 
     this.props.navigator.push({
@@ -50,48 +44,59 @@ class Result extends Component {
     return (
         
       <View style={styles.container}>
-        <Tile >
-        
         <Image
             styleName="large-portrait"
             source={{uri:Config.myurl}}
         > 
         
         <Tile>
-          <Title>YOUR Are</Title>
-          <Heading>{Config.emotionV*100}%</Heading>
-          <Heading>{Config.randomEmotion}</Heading>
-          <Button styleName="md-gutter-top" onPress={this.onBackPress.bind(this)}>
+          <Title style = {styles.title}>YOU ARE</Title>
+          <Title style = {styles.title}>{(Config.emotionV*100).toFixed(4)}%</Title>
+          <Title style = {styles.title}>{Config.randomEmotion}</Title>
+          <Button styleName="md-gutter-top" onPress={() => this.onBackPress()}>
             <Icon name="refresh"/>
-            <Text>Next</Text>         
+            <Text>Try Again</Text>         
           </Button>
-         
+          <Button styleName="md-gutter-top" onPress={() => this.onHomePress()}>
+            <Icon name="laptop"/>
+            <Text>   Home   </Text>         
+          </Button>
         </Tile>
       </Image>
-        </Tile>   
+  
       </View>
 
     );
   }
 
-  onBackPress() {
+  onHomePress () {
 
-    //var myobject = getRandomEmotion();
-    //alert(myobject.emotionKey);
-    Config.showMsg = true;
-    Config.emt = getRandomEmotion().emotionName;
-    Config.key = getRandomEmotion().emotionKey;
-    if(Config.emt === null) {
-      alert('ddddd');
-    }else{
+    this.props.navigator.pop({
+      id: 'Home'
+    });
+  }
+  
+  _navigate = () => {
+
+    if(Config.key != null) {
       this.props.navigator.pop({
         id: 'Test', 
         props: {
-          myprop: 'fffff'
+          key: 'try'
         }
       });
     }
-    
+  }
+
+  async onBackPress() {
+
+    var myobject = getRandomEmotion();
+    if(myobject.emotionKey != null) {
+      Config.key = myobject.emotionKey;
+      Config.emt = myobject.emotionName;
+      Config.showMsg = true;
+      this._navigate();
+    }
 
   }
 }
@@ -100,8 +105,7 @@ class Result extends Component {
 Result.propTypes = {
   navigator: PropTypes.object,
   myvar: PropTypes.string,
-  emotionscore : PropTypes.number,
-
+  key : PropTypes.string
 
 };
 
@@ -111,7 +115,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
 
-
+  title: {
+    fontSize: 60, 
+    fontWeight: 'bold'
+  }
 });
 
 module.exports = Result;

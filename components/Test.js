@@ -6,23 +6,18 @@ import {
   View,
   StyleSheet,
   TouchableHighlight,
-  Title,
 
-  Navigator,
-  Animated,
-  Easing
 
 } from 'react-native';
 import {
-  Image,
-  Button,
 
+  Image
 
 } from '@shoutem/ui';
 
 import Camera from 'react-native-camera';
+import Load from 'react-native-loading-gif';
 var img = require('./imgs/myframe.png');
-import { getRandomEmotion } from '../config/emotions';
 import { Buffer } from 'buffer';
 import RNFS from 'react-native-fs';
 var Config = require('./Config');
@@ -32,40 +27,30 @@ class Test extends Component {
 
   constructor(props) {
     super(props);
-    this.props.myprop = 'dddd';
+    this.props.key = 'dddd';
     this.state = {
-      showEmotion: true,
-      myobject: getRandomEmotion(),
-      emotion: '',
-      emotionvalue: 0,
-      temp: 3,
-      timer: 3,
-      mylook: '',
-      counter: 3,
-      myvar: 0,
-      showMap: true,
-
+      temp: 3
     };
 
   }
 
-  componentWillUnmount() {
-    alert('finished');
-  }
+  componentDidUpdate() {
 
+    if (this.state.temp === 0) {
+      this.refs.Load.setTimeClose(3000);  
+    }
+  }
   _onPressOut() {
 
     this.takePictureInterval = setInterval(() => {
 
       if (this.state.temp === 0) {
-
         clearInterval(this.takePictureInterval);
         const options = {};
         this.camera.capture([options])
           .then((data) => {
             var myimg = data.path;
             var img = myimg.replace('file:', '');
-
             Config.myurl = img;
             return RNFS.readFile(img, 'base64')
               .then((file) => {
@@ -93,22 +78,27 @@ class Test extends Component {
                     return response.json();
                   })
                   .then((data) => {
-                    var key = Config.key;
-                    Config.emotionV = data[0].scores.key;
-                    //Config.randomEmotion= this.state.myobject.emotionName;
-                    this.props.navigator.push({
-                      id: 'Result',
-                    });
+                    console.log(data);
+                    var mykey = Config.key;
+                    if (mykey === Config.key) {      
+                      Config.emotionV = data[0].scores[Config.key];
+                      alert('key is: ' + this.props.key);
+                      Config.randomEmotion = Config.emt;
+                      //this.props.key = 'dd';
+                    }
+                    else { alert('Something is wrong'); }
 
                   })
                   .then(() => {
+
+                    alert('then me');
                     this.setState({
-                      showMap: true,
                       temp: 3,
-                      myobject: getRandomEmotion()
                     });
                     Config.showMsg = false;
-
+                    this.props.navigator.push({
+                      id: 'Result',
+                    });
                   })
                   .catch(function (err) {
                     console.log(err);
@@ -126,12 +116,16 @@ class Test extends Component {
   }
 
   render() {
+
     var mytext = Config.showMsg ? (
       <Text style={{ fontSize: 40, fontWeight: 'bold', color: 'skyblue', bottom: 90 }}>{Config.emt}</Text>
-    ) : null;
+    ) : <Text></Text>;
 
     return (
+
+
       <View style={styles.container}>
+        <Load style={{ marginTop: 100 }} ref="Load"></Load>
         <Camera
           ref={(cam) => {
             this.camera = cam;
@@ -141,6 +135,9 @@ class Test extends Component {
           captureQuality={Camera.constants.CaptureQuality.high}
           type={Camera.constants.Type.front}
           captureTarget={Camera.constants.CaptureTarget.disk}>
+
+
+
           <Image
             styleName="large-square"
             source={img}
@@ -148,8 +145,6 @@ class Test extends Component {
           {mytext}
 
           <Text style={{ fontSize: 60, fontWeight: 'bold', color: 'skyblue', }}>{this.state.temp}</Text>
-
-
           <TouchableHighlight onPress={() => this._onPressOut()} style={{ backgroundColor: 'skyblue' }}>
             <Text style={{ fontSize: 30, fontWeight: 'bold', }}>CAPTURE</Text>
           </TouchableHighlight>
@@ -161,9 +156,11 @@ class Test extends Component {
 }
 
 
+
 Test.propTypes = {
   navigator: PropTypes.object,
   myprop: PropTypes.string,
+  key: PropTypes.string,
 
 };
 
@@ -172,7 +169,6 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-
 
   },
 

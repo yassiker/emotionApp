@@ -15,7 +15,7 @@ import {
 } from '@shoutem/ui';
 
 import Popup from 'react-native-popup';
-import { getRandomEmotion } from '../config/emotions';
+//import { getRandomEmotion } from '../config/emotions';
 let img1 = require('./imgs/backEm.jpg');
 
 class Home extends Component {
