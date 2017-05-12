@@ -38,10 +38,10 @@ class Home extends Component {
           <Tile>
             <Title styleName="md-gutter-bottom" style={{bottom: 200,fontSize: 20, fontWeight: 'bold' }}>EMOTION RECOGNITION</Title>
             <Title styleName="md-gutter-bottom" style={{ bottom: 150, fontSize: 20, fontWeight: 'bold' }}>ANGER, HAPPINESS, SADNESS, AND MORE ...</Title>
-            <Button styleName="dark" onPress={this.onButtonPress.bind(this)} style={{ marginBottom:100,top: 200, width: 130 }}>
+            <Button styleName="dark" onPress={this.onButtonPress.bind(this)} style={{marginBottom:100,top: 250, width: 130 }}>
               <Text style={{ fontSize: 20, fontWeight: 'bold', }}>START</Text>
             </Button>
-            <Overlay styleName="solid-bright" style={{ top: 120, height: 50 }}>
+            <Overlay styleName="solid-bright" style={{ top: 150, height: 50 }}>
               <Subtitle styleName="sm-gutter-horizontal" style={{ paddingTop:5,fontSize: 20, fontWeight: 'bold', }}>TO CHALLEGNE YOUR FACE EMOTIONS</Subtitle>
             </Overlay>
           </Tile>

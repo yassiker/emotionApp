@@ -37,7 +37,7 @@ class EmotionApi extends Component {
   componentDidUpdate() {
 
     if (this.state.temp === 0) {
-      this.refs.Load.setTimeClose(3000);  
+      this.refs.Load.setTimeClose(3000);
     }
   }
   _onPressOut() {
@@ -81,7 +81,7 @@ class EmotionApi extends Component {
 
                     console.log(data);
                     var mykey = Config.key;
-                    if (mykey === Config.key) {    
+                    if (mykey === Config.key) {
                       Config.emotion = data[0].scores[Config.key];
                       Config.randomEmotion = Config.emt;
                       mykey = '';
@@ -119,8 +119,6 @@ class EmotionApi extends Component {
     ) : <Text></Text>;
 
     return (
-
-
       <View style={styles.container}>
         <Load style={{ marginTop: 100 }} ref="Load"></Load>
         <Camera
@@ -132,9 +130,6 @@ class EmotionApi extends Component {
           captureQuality={Camera.constants.CaptureQuality.high}
           type={Camera.constants.Type.front}
           captureTarget={Camera.constants.CaptureTarget.disk}>
-
-
-
           <Image
             styleName="large-square"
             source={img}
@@ -142,6 +137,7 @@ class EmotionApi extends Component {
           {mytext}
 
           <Text style={{ fontSize: 60, fontWeight: 'bold', color: 'skyblue', }}>{this.state.temp}</Text>
+          
           <TouchableHighlight onPress={() => this._onPressOut()} style={{ backgroundColor: 'skyblue' }}>
             <Text style={{ fontSize: 30, fontWeight: 'bold', }}>CAPTURE</Text>
           </TouchableHighlight>

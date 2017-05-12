@@ -57,23 +57,12 @@ class Result extends Component {
             <Icon name="refresh"/>
             <Text>Try Again</Text>         
           </Button>
-          <Button styleName="md-gutter-top" onPress={() => this.onHomePress()}>
-            <Icon name="laptop"/>
-            <Text>   Home    </Text>         
-          </Button>
         </Tile>
       </Image>
   
       </View>
 
     );
-  }
-
-  onHomePress = () => {
-
-    this.props.navigator.pop({
-      id: 'Home'
-    });
   }
   
   _navigate = () => {
