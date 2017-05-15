@@ -34,6 +34,9 @@ class EmotionApi extends Component {
 
   }
 
+  componentWillMount() {
+    alert('The Emotion is selected Randomly for you, Just Click on Capture to start');
+  }
   componentDidUpdate() {
 
     if (this.state.temp === 0) {
@@ -120,7 +123,7 @@ class EmotionApi extends Component {
 
     return (
       <View style={styles.container}>
-        <Load style={{ marginTop: 100 }} ref="Load"></Load>
+        <Load style={{ marginTop: 100, backgroundColor:'black' }} ref="Load"></Load>
         <Camera
           ref={(cam) => {
             this.camera = cam;
@@ -168,7 +171,7 @@ var styles = StyleSheet.create({
   preview: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center'
   },
 });
