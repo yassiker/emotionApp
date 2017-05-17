@@ -1,129 +1,116 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import {
-
-  Text,
   View,
+  Text,
   StyleSheet,
-  TouchableHighlight,
-
-
 } from 'react-native';
-import {
-
-  Image
-
-} from '@shoutem/ui';
 
 import Camera from 'react-native-camera';
-import Load from 'react-native-loading-gif';
-var img = require('./imgs/myframe.png');
 import { Buffer } from 'buffer';
 import RNFS from 'react-native-fs';
+import Load from 'react-native-loading-gif';
 var Config = require('./Config');
-
 
 class EmotionApi extends Component {
 
-  constructor(props) {
-    super(props);
-    this.props.key = 'dddd';
+  constructor() {
+    super();
     this.state = {
-      temp: 3
+      temp: 3,
+      showCounter: true,
     };
-
   }
 
-  componentWillMount() {
-    alert('The Emotion is selected Randomly for you, Just Click on Capture to start');
+  componentDidMount() {
+    this._counter();
   }
+
   componentDidUpdate() {
-
     if (this.state.temp === 0) {
       this.refs.Load.setTimeClose(3000);
     }
   }
-  _onPressOut() {
 
-    this.takePictureInterval = setInterval(() => {
+  _counter = () => {
+    this.takePictureInterval = setInterval(() => this._Counting(), 1000);
+  }
 
-      if (this.state.temp === 0) {
-        clearInterval(this.takePictureInterval);
-        const options = {};
-        this.camera.capture([options])
-          .then((data) => {
-            var myimg = data.path;
-            var img = myimg.replace('file:', '');
-            Config.myurl = img;
-            return RNFS.readFile(img, 'base64')
-              .then((file) => {
-                file = new Buffer(file);
-                if (!global.atob) {
-                  global.atob = require('base-64').decode;
-                }
-                let buffer = atob(file);
-                var array = new Uint8Array(new ArrayBuffer(buffer.length));
+  _takephoto = () => {
 
-                for (var i = 0; i < buffer.length; i++) {
-                  array[i] = buffer.charCodeAt(i);
-                }
+    this.setState({
+      showCounter: false,
+      temp: 3
+    });
 
-                fetch('https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize?*', {
-                  method: 'POST',
-                  body: array,
-                  headers: {
-                    'Ocp-Apim-Subscription-Key': '7bea3b94b4434e118e3715da57d8c17f',
-                    'Content-Type': 'application/octet-stream'
-                  },
-                  credentials: 'same-origin',
+    const options = {};
+    this.camera.capture([options])
+      .then((data) => {
+        var myimg = data.path;
+        var img = myimg.replace('file:', '');
+        Config.myurl = img;
+        return RNFS.readFile(img, 'base64')
+          .then((file) => {
+            file = new Buffer(file);
+            if (!global.atob) {
+              global.atob = require('base-64').decode;
+            }
+            let buffer = atob(file);
+            var array = new Uint8Array(new ArrayBuffer(buffer.length));
+
+            for (var i = 0; i < buffer.length; i++) {
+              array[i] = buffer.charCodeAt(i);
+            }
+
+            fetch('https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize?*', {
+              method: 'POST',
+              body: array,
+              headers: {
+                'Ocp-Apim-Subscription-Key': '7bea3b94b4434e118e3715da57d8c17f',
+                'Content-Type': 'application/octet-stream'
+              },
+              credentials: 'same-origin',
+            })
+              .then(function (response) {
+                return response.json();
+              })
+              
+              .then((data) => {
+                Config.emotionValue = data[0].scores[this.props.data.emotionKey];
+                Config.randomEmotion = this.props.data.emotionName;
+                this.setState({
+                  showCounter: false,
+                  temp: 3
+                }, this.props.navigator.push({
+                  name: 'MyResult'
                 })
-                  .then(function (response) {
-                    return response.json();
-                  })
-                  .then((data) => {
+                );
 
-                    console.log(data);
-                    var mykey = Config.key;
-                    if (mykey === Config.key) {
-                      Config.emotion = data[0].scores[Config.key];
-                      Config.randomEmotion = Config.emt;
-                      mykey = '';
-                    }
-
-                  })
-                  .then(() => {
-                    this.setState({
-                      temp: 3,
-                    });
-                    Config.showMsg = false;
-                    this.props.navigator.push({
-                      id: 'Result',
-                    });
-                  })
-                  .catch(function (err) {
-                    console.log(err);
-                  });
-
+              })
+              .catch(function (err) {
+                console.log(err);
               });
+
           })
           .catch(err => console.error(err));
-      } else {
-        this.setState({
-          temp: --this.state.temp
-        });
-      }
-    }, 1000);
+      });
+  }
+
+  _Counting = () => {
+    if (this.state.temp === 0) {
+      this._takephoto();
+      clearInterval(this.takePictureInterval);
+    } else {
+      this.setState({
+        temp: --this.state.temp
+      });
+    }
   }
 
   render() {
-
-    var mytext = Config.showMsg ? (
-      <Text style={{ fontSize: 40, fontWeight: 'bold', color: 'skyblue', bottom: 90 }}>{Config.emt}</Text>
-    ) : <Text></Text>;
-
     return (
       <View style={styles.container}>
-        <Load style={{ marginTop: 100, backgroundColor:'black' }} ref="Load"></Load>
+
         <Camera
           ref={(cam) => {
             this.camera = cam;
@@ -132,48 +119,55 @@ class EmotionApi extends Component {
           aspect={Camera.constants.Aspect.fill}
           captureQuality={Camera.constants.CaptureQuality.high}
           type={Camera.constants.Type.front}
-          captureTarget={Camera.constants.CaptureTarget.disk}>
-          <Image
-            styleName="large-square"
-            source={img}
-          />
-          {mytext}
-
-          <Text style={{ fontSize: 60, fontWeight: 'bold', color: 'skyblue', }}>{this.state.temp}</Text>
-          
-          <TouchableHighlight onPress={() => this._onPressOut()} style={{ backgroundColor: 'skyblue' }}>
-            <Text style={{ fontSize: 30, fontWeight: 'bold', }}>CAPTURE</Text>
-          </TouchableHighlight>
+          captureTarget={Camera.constants.CaptureTarget.disk}
+        >
+         
         </Camera>
-
+        {
+          this.state.showCounter ? (
+            <View style={{ alignItems: 'center', height: 85, justifyContent: 'center', }}>
+              <Text style={styles.counter} >{this.state.temp}</Text>
+            </View>
+          ) : <View style={{ alignItems: 'center', height: 85, justifyContent: 'center', }}>
+              <Text style={styles.counter} >Loading...</Text>
+            </View>
+        }
+        <Load style={{ marginTop: 100, backgroundColor: 'black' }} ref="Load"></Load>
       </View>
     );
   }
+
 }
-
-
 
 EmotionApi.propTypes = {
   navigator: PropTypes.object,
-  myprop: PropTypes.string,
-  key: PropTypes.string,
+  emotionObject: PropTypes.object,
+  mycounter: PropTypes.number,
+  data: PropTypes.object
 
 };
 
-
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-
+    backgroundColor:'skyblue'
   },
 
   preview: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'center'
-  },
-});
+    alignItems: 'center',
 
-module.exports = EmotionApi;
+  },
+  counter: {
+    fontSize: 60,
+    textAlign: 'center',
+    zIndex: 1,
+    top: 10,
+    color: 'black'
+  },
+
+
+});
+export default EmotionApi;

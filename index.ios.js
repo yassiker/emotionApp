@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+/*import React, { Component } from 'react';
 import {
   AppRegistry,
   Navigator,
@@ -47,4 +47,12 @@ class motionApp extends Component {
   }
 }
 
-AppRegistry.registerComponent('motionApp', () => motionApp);
+AppRegistry.registerComponent('motionApp', () => motionApp);*/
+
+
+import { AppRegistry } from 'react-native';
+import App from './components/Route';
+
+
+AppRegistry.registerComponent('motionApp', () => App);
+
