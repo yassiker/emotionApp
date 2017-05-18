@@ -56,8 +56,8 @@ class GetEmotion extends Component {
             >
             </Image>
         </Camera>
-        <View style={{alignItems:'center', height:50}}>
-        <Text style={{fontSize: 40, fontWeight: 'bold',backgroundColor:'white'}}>"{this.state.emotionObject.emotionName}"</Text>
+        <View style={styles.textview}>
+        <Text style={styles.mytext}>"{this.state.emotionObject.emotionName}"</Text>
         </View>
         <TouchableHighlight style={styles.fullWidthButton} onPress = {() => this.navigate('EmotionApi')}>
           <Text style={styles.fullWidthButtonText}>CAPTURE</Text>
@@ -70,8 +70,6 @@ class GetEmotion extends Component {
 
 GetEmotion.propTypes = {
   navigator: PropTypes.object,
-  myobject: PropTypes.object,
-
 };
 
 const styles = StyleSheet.create({
@@ -86,6 +84,15 @@ const styles = StyleSheet.create({
   },
   myimg: {
     top:30,
+  },
+  textview: {
+    alignItems:'center', 
+    height:50
+  },
+  mytext:{
+    fontSize: 40, 
+    fontWeight: 'bold',
+    backgroundColor:'white'
   },
   fullWidthButton: {
     backgroundColor: 'skyblue',

@@ -17,11 +17,11 @@ class App extends Component {
     if(route.name === 'Index') {
       return < Index navigator = {navigator} data={route.data} />;
     } else if (route.name === 'GetEmotion') {
-      return < GetEmotion navigator = {navigator} data={route.data} mycounter={route.mycounter} {... route.props} />;
+      return < GetEmotion navigator = {navigator} data={route.data} />;
     } else if(route.name === 'EmotionApi') {
-      return < EmotionApi navigator = {navigator} data={route.data} mycounter={route.mycounter} {... route.props} />;
+      return < EmotionApi navigator = {navigator} data={route.data} />;
     } else if (route.name === 'MyResult') {
-      return < MyResult navigator = {navigator} data={route.data} mycounter={route.mycounter} {... route.props}/>;
+      return < MyResult navigator = {navigator} data={route.data} />;
     }
   }
 

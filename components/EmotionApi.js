@@ -33,71 +33,81 @@ class EmotionApi extends Component {
   }
 
   _counter = () => {
-    this.takePictureInterval = setInterval(() => this._Counting(), 1000);
+    this.takePictureInterval = setInterval(() => this._counting(), 1000);
   }
 
-  _takephoto = () => {
+  _createimage = (data) => {
+    var myimg = data.path;
+    var img = myimg.replace('file:', '');
+    Config.myurl = img;
+    return RNFS.readFile(img, 'base64');
 
+  }
+
+  _transformimage = (file) => {
+    file = new Buffer(file);
+    if (!global.atob) {
+      global.atob = require('base-64').decode;
+    }
+    let buffer = atob(file);
+    var array = new Uint8Array(new ArrayBuffer(buffer.length))
+      .map((x, i) => buffer.charCodeAt(i));
+    return this._sendimagetoApi(array);
+
+  }
+
+  _sendimagetoApi = (array) => {
+
+    return fetch('https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize?*', {
+      method: 'POST',
+      body: array,
+      headers: {
+        'Ocp-Apim-Subscription-Key': '7bea3b94b4434e118e3715da57d8c17f',
+        'Content-Type': 'application/octet-stream'
+      },
+      credentials: 'same-origin',
+    });
+  }
+
+  _navigatetoResult = (data) =>{
+    console.log(data);
+    //Config.emotionValue = data[0].scores[this.props.data.emotionKey];
+    //Config.randomEmotion = this.props.data.emotionName;
+    this.setState({
+      showCounter: false,
+      temp: 3
+    }, this.props.navigator.push({
+      name: 'MyResult',
+      data: { name: this.props.data.emotionName , value: data[0].scores[this.props.data.emotionKey] }
+    })
+    );
+  }
+  _takephoto = () => {
     this.setState({
       showCounter: false,
       temp: 3
     });
-
     const options = {};
     this.camera.capture([options])
+      .then((data) =>{
+        return this._createimage(data);
+      })
+      .then((file) => {
+        return this._transformimage(file);
+      })
+      .then(function (response) {
+        console.log(response.json);
+        return response.json();
+      })    
       .then((data) => {
-        var myimg = data.path;
-        var img = myimg.replace('file:', '');
-        Config.myurl = img;
-        return RNFS.readFile(img, 'base64')
-          .then((file) => {
-            file = new Buffer(file);
-            if (!global.atob) {
-              global.atob = require('base-64').decode;
-            }
-            let buffer = atob(file);
-            var array = new Uint8Array(new ArrayBuffer(buffer.length));
-
-            for (var i = 0; i < buffer.length; i++) {
-              array[i] = buffer.charCodeAt(i);
-            }
-     
-            fetch('https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize?*', {
-              method: 'POST',
-              body: array,
-              headers: {
-                'Ocp-Apim-Subscription-Key': '7bea3b94b4434e118e3715da57d8c17f',
-                'Content-Type': 'application/octet-stream'
-              },
-              credentials: 'same-origin',
-            })
-              .then(function (response) {
-                return response.json();
-              })    
-              .then((data) => {
-                console.log(data);
-                Config.emotionValue = data[0].scores[this.props.data.emotionKey];
-                Config.randomEmotion = this.props.data.emotionName;
-                
-                this.setState({
-                  showCounter: false,
-                  temp: 3
-                }, this.props.navigator.push({
-                  name: 'MyResult'
-                })
-                );
-
-              })
-              .catch(function (err) {
-                console.log(err);
-              });
-
-          })
-          .catch(err => console.error(err));
-      });
+        this._navigatetoResult(data);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });         
   }
 
-  _Counting = () => {
+  _counting = () => {
     if (this.state.temp === 0) {
       this._takephoto();
       clearInterval(this.takePictureInterval);
@@ -126,14 +136,14 @@ class EmotionApi extends Component {
         </Camera>
         {
           this.state.showCounter ? (
-            <View style={{ alignItems: 'center', height: 85, justifyContent: 'center', }}>
+            <View style={styles.counterstyle}>
               <Text style={styles.counter} >{this.state.temp}</Text>
             </View>
-          ) : <View style={{ alignItems: 'center', height: 85, justifyContent: 'center', }}>
+          ) : <View style={styles.loading}>
               <Text style={styles.counter} >Loading...</Text>
             </View>
         }
-        <Load style={{ marginTop: 100, backgroundColor: 'black' }} ref="Load"></Load>
+        <Load ref="Load"></Load>
       </View>
     );
   }
@@ -142,8 +152,6 @@ class EmotionApi extends Component {
 
 EmotionApi.propTypes = {
   navigator: PropTypes.object,
-  emotionObject: PropTypes.object,
-  mycounter: PropTypes.number,
   data: PropTypes.object
 
 };
@@ -161,14 +169,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 
   },
+  counterstyle : {
+    alignItems: 'center', 
+    height: 100, 
+    justifyContent: 'center'
+  },
+  loading: {
+    alignItems: 'center', 
+    height: 100, 
+    justifyContent: 'center'
+  },
   counter: {
     fontSize: 60,
     textAlign: 'center',
     zIndex: 1,
-    top: 10,
+    //top: 10,
     color: 'black'
   },
 
 
 });
+
 export default EmotionApi;

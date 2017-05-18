@@ -12,30 +12,17 @@ import {
 
 } from '@shoutem/ui';
 
-import { getRandomEmotion } from '../config/emotions';
 let img1 = require('./imgs/backEm.jpg');
 
 class Index extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      emotionName : getRandomEmotion().emotionName,
-    };
     this.navigate = this.navigate.bind(this);
   }
-
-  componentWillReceiveProps() {
-    this.setState({
-      emotionName: getRandomEmotion().emotionName
-    });
-
-  }
-
   navigate = (name) => {
     this.props.navigator.push({
-      name,
-      data: this.state.emotionName
+      name
     });
 
   }
@@ -49,14 +36,14 @@ class Index extends Component {
           style={styleTypes.backgroundImage}
         >
           <Tile>
-            <Title styleName="md-gutter-bottom" style={{paddingTop:15,bottom: 200,fontSize: 40, fontWeight: 'bold' }}>EMOTION RECOGNITION</Title>
-            <Title styleName="md-gutter-bottom" style={{ paddingTop:15,bottom: 150, fontSize: 35, fontWeight: 'bold' }}>ANGER, HAPPINESS, SADNESS </Title>
-             <Title styleName="md-gutter-bottom" style={{ paddingTop:15,bottom: 150, fontSize: 35, fontWeight: 'bold' }}>AND MORE ...</Title>
-            <Button styleName="dark" onPress = {() => this.navigate('GetEmotion')} style={{marginBottom:100,top: 250, width: 130 }}>
+            <Title styleName="md-gutter-bottom" style={{fontSize: 20,fontWeight: 'bold'}}>EMOTION RECOGNITION</Title>
+            <Title styleName="md-gutter-bottom" style={{fontSize: 25,fontWeight: 'bold'}}>ANGER, HAPPINESS, SADNESS </Title>
+             <Title styleName="md-gutter-bottom" style={{fontSize: 25,fontWeight: 'bold'}}>AND MORE ...</Title>
+            <Button styleName="dark" onPress = {() => this.navigate('GetEmotion')} style={{marginBottom:100,top: 130, width: 130 }}>
               <Text style={{ fontSize: 20, fontWeight: 'bold', }}>START</Text>
             </Button>
-            <Overlay styleName="solid-bright" style={{ top: 170, height: 100 }}>
-              <Subtitle styleName="sm-gutter-horizontal" style={{ paddingTop:15,fontSize: 25, fontWeight: 'bold', }}>TO CHALLEGNE YOUR FACE EMOTIONS</Subtitle>
+            <Overlay styleName="solid-bright" style={{ top:50,height: 100 }}>
+              <Subtitle styleName="sm-gutter-horizontal" style={{paddingTop:15,fontSize: 20,fontWeight: 'bold',}}>TO CHALLENGE YOUR FACE EMOTIONS</Subtitle>
             </Overlay>
           </Tile>
         </Image>
@@ -68,11 +55,8 @@ class Index extends Component {
 
 Index.propTypes = {
   navigator: PropTypes.object,
-  myobject: PropTypes.object,
   data : PropTypes.string,
 };
-
-
 
 const styleTypes = {
   selectedOption: {
@@ -84,7 +68,8 @@ const styleTypes = {
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
-  }
+  },
+
 };
 
 export default Index;

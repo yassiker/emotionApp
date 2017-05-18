@@ -23,6 +23,7 @@ class MotionConfig {
   }
 
   extractEmotionScore(scores) {
+
     return this.emotionScore = scores[this.emotionKey];
   }
 }

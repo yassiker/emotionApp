@@ -37,9 +37,9 @@ class MyResult extends Component  {
       source={{uri:Config.myurl}}
     >
       <Tile>
-        <Title styleName="md-gutter-bottom" style={{paddingTop:10, fontSize: 30, fontWeight: 'bold' }}>YOU ARE</Title>
-        <Title styleName="md-gutter-bottom" style={{paddingTop:10, fontSize: 30, fontWeight: 'bold' }}>{(Config.emotionValue*100).toFixed(4)}%</Title>
-        <Title styleName="md-gutter-bottom" style={{paddingTop:10, fontSize: 30, fontWeight: 'bold' }}>{Config.randomEmotion}</Title>
+        <Title styleName="md-gutter-bottom" style={{paddingTop:10,fontSize: 30,fontWeight: 'bold'}}>YOU ARE</Title>
+        <Title styleName="md-gutter-bottom" style={{paddingTop:10,fontSize: 30,fontWeight: 'bold'}}>{(this.props.data.value*100).toFixed(2)}%</Title>
+        <Title styleName="md-gutter-bottom" style={{paddingTop:10,fontSize: 30,fontWeight: 'bold'}}>{this.props.data.name}</Title>
         <Button styleName="md-gutter-top" onPress={() => this.props.navigator.replace({
           name : 'GetEmotion',
         })}>
@@ -49,9 +49,6 @@ class MyResult extends Component  {
 
         <Button styleName="md-gutter-top" onPress={() => this.props.navigator.replace({
           name : 'Index',
-          props: {
-            mycounter: 3
-          }
         })}>
           <Icon name="close"/>
           <Text>   Home   </Text>
@@ -65,8 +62,7 @@ class MyResult extends Component  {
 
 MyResult.propTypes = {
   navigator: PropTypes.object,
-  mycounter: PropTypes.number,
-  color: PropTypes.string
+  data: PropTypes.object
 };
 
 const styles = StyleSheet.create({
@@ -74,6 +70,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center'
   },
+  mytext: {
+    paddingTop:10, 
+    fontSize: 30, 
+    fontWeight: 'bold'
+  }
 
 });
 export default MyResult;

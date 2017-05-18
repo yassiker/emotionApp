@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0620"
-   version = "1.7">
+   version = "1.3">
    <BuildAction
-      parallelizeBuildables = "YES"
+      parallelizeBuildables = "NO"
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "motionApp.app"
-               BlueprintName = "motionApp"
-               ReferencedContainer = "container:motionApp.xcodeproj">
+               BuildableName = "emotionapp.app"
+               BlueprintName = "emotionapp"
+               ReferencedContainer = "container:emotionapp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "motionAppTests.xctest"
-               BlueprintName = "motionAppTests"
-               ReferencedContainer = "container:motionApp.xcodeproj">
+               BuildableName = "emotionappTests.xctest"
+               BlueprintName = "emotionappTests"
+               ReferencedContainer = "container:emotionapp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "motionAppTests.xctest"
-               BlueprintName = "motionAppTests"
-               ReferencedContainer = "container:motionApp.xcodeproj">
+               BuildableName = "emotionappTests.xctest"
+               BlueprintName = "emotionappTests"
+               ReferencedContainer = "container:emotionapp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "motionApp.app"
-            BlueprintName = "motionApp"
-            ReferencedContainer = "container:motionApp.xcodeproj">
+            BuildableName = "emotionapp.app"
+            BlueprintName = "emotionapp"
+            ReferencedContainer = "container:emotionapp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,20 +94,16 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "motionApp.app"
-            BlueprintName = "motionApp"
-            ReferencedContainer = "container:motionApp.xcodeproj">
+            BuildableName = "emotionapp.app"
+            BlueprintName = "emotionapp"
+            ReferencedContainer = "container:emotionapp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
-      <LocationScenarioReference
-         identifier = "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier"
-         referenceType = "1">
-      </LocationScenarioReference>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -117,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "motionApp.app"
-            BlueprintName = "motionApp"
-            ReferencedContainer = "container:motionApp.xcodeproj">
+            BuildableName = "emotionapp.app"
+            BlueprintName = "emotionapp"
+            ReferencedContainer = "container:emotionapp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
