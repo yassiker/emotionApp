@@ -28,7 +28,7 @@ class EmotionApi extends Component {
 
   componentDidUpdate() {
     if (this.state.temp === 0) {
-      this.refs.Load.setTimeClose(3000);
+      this.refs.Load.setTimeClose(2000);
     }
   }
 
@@ -61,7 +61,7 @@ class EmotionApi extends Component {
             for (var i = 0; i < buffer.length; i++) {
               array[i] = buffer.charCodeAt(i);
             }
-
+     
             fetch('https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize?*', {
               method: 'POST',
               body: array,
@@ -73,11 +73,12 @@ class EmotionApi extends Component {
             })
               .then(function (response) {
                 return response.json();
-              })
-              
+              })    
               .then((data) => {
+                console.log(data);
                 Config.emotionValue = data[0].scores[this.props.data.emotionKey];
                 Config.randomEmotion = this.props.data.emotionName;
+                
                 this.setState({
                   showCounter: false,
                   temp: 3

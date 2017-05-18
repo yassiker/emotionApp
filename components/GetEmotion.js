@@ -4,11 +4,13 @@ import {
     View,
     Text,
     StyleSheet,
-    Image,
     TouchableHighlight,
 } from 'react-native';
 
+import {
+  Image,
 
+} from '@shoutem/ui';
 import Camera from 'react-native-camera';
 var img = require('./imgs/myframe.png');
 import { getRandomEmotion } from '../config/emotions';
@@ -49,7 +51,7 @@ class GetEmotion extends Component {
             captureTarget={Camera.constants.CaptureTarget.disk}
             >
             <Image
-            styleName="featured"
+            styleName="large-square"
             source={img}
             >
             </Image>
