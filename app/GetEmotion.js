@@ -12,7 +12,7 @@ import {
 
 } from '@shoutem/ui';
 import Camera from 'react-native-camera';
-var img = require('./imgs/myframe.png');
+var img = require('./assets/imgs/myframe.png');
 import { getRandomEmotion } from '../config/emotions';
 
 class GetEmotion extends Component {
@@ -26,7 +26,7 @@ class GetEmotion extends Component {
   }
 
   componentWillMount() {
-    alert('The Emotion is selected Randomly for you, Just Click on Capture to start');
+    //alert('The Emotion is selected Randomly for you, Just Click on Capture to start');
   }
 
   navigate = (name) => {
@@ -57,7 +57,7 @@ class GetEmotion extends Component {
             </Image>
         </Camera>
         <View style={styles.textview}>
-        <Text style={styles.mytext}>"{this.state.emotionObject.emotionName}"</Text>
+          <Text style={styles.mytext}>"{this.state.emotionObject.emotionName}"</Text>
         </View>
         <TouchableHighlight style={styles.fullWidthButton} onPress = {() => this.navigate('EmotionApi')}>
           <Text style={styles.fullWidthButtonText}>CAPTURE</Text>
@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
   },
   textview: {
     alignItems:'center', 
-    height:50
+    height:50,
+    backgroundColor: 'rgba(0,0,0,0)',
   },
   mytext:{
     fontSize: 40, 
@@ -102,7 +103,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 3,
     borderRadius: 10,
-    borderColor: '#d6d7da',
+    borderColor: 'black',
+    //borderColor: '#d6d7da',
   },
   fullWidthButtonText: {
     fontSize: 35,

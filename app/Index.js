@@ -12,7 +12,12 @@ import {
 
 } from '@shoutem/ui';
 
-let img1 = require('./imgs/backEm.jpg');
+import {
+  Animated,
+  Easing
+} from 'react-native';
+
+let img1 = require('./assets/imgs/backimage1.jpg');
 
 class Index extends Component {
 
@@ -20,6 +25,10 @@ class Index extends Component {
     super(props);
     this.navigate = this.navigate.bind(this);
   }
+
+  componentDidMount() {
+  }
+
   navigate = (name) => {
     this.props.navigator.push({
       name
@@ -28,6 +37,7 @@ class Index extends Component {
   }
 
   render() {
+
     return (
       <View style={styleTypes.selectedOption}>
         <Image
@@ -36,14 +46,15 @@ class Index extends Component {
           style={styleTypes.backgroundImage}
         >
           <Tile>
-            <Title styleName="md-gutter-bottom" style={{fontSize: 20,fontWeight: 'bold'}}>EMOTION RECOGNITION</Title>
-            <Title styleName="md-gutter-bottom" style={{fontSize: 25,fontWeight: 'bold'}}>ANGER, HAPPINESS, SADNESS </Title>
-             <Title styleName="md-gutter-bottom" style={{fontSize: 25,fontWeight: 'bold'}}>AND MORE ...</Title>
-            <Button styleName="dark" onPress = {() => this.navigate('GetEmotion')} style={{marginBottom:100,top: 130, width: 130 }}>
-              <Text style={{ fontSize: 20, fontWeight: 'bold', }}>START</Text>
+            <Title style={{bottom:100,fontSize: 15,fontWeight: 'bold'}}>EMOTION RECOGNITION</Title>
+            <Title styleName="md-gutter-bottom" style={{bottom:100,fontSize: 15,fontWeight: 'bold'}}>ANGER, HAPPINESS, SADNESS </Title>
+             <Title styleName="md-gutter-bottom" style={{bottom:100,fontSize: 15,fontWeight: 'bold'}}>AND MORE ...</Title>
+            <Button styleName="dark" onPress = {() => this.navigate('GetEmotion')} style={{marginBottom:100,top: 140, width: 100 }}>
+              <Text style={{ fontSize: 15, fontWeight: 'bold', }}>START</Text>
             </Button>
-            <Overlay styleName="solid-bright" style={{ top:50,height: 100 }}>
-              <Subtitle styleName="sm-gutter-horizontal" style={{paddingTop:15,fontSize: 20,fontWeight: 'bold',}}>TO CHALLENGE YOUR FACE EMOTIONS</Subtitle>
+            
+            <Overlay styleName="solid-bright" style={{ top:50,height: 30 }}>
+              <Subtitle styleName="sm-gutter-horizontal" style={{paddingTop:0,fontSize: 12,fontWeight: 'bold',}}>TO CHALLENGE YOUR FACE EMOTIONS</Subtitle>
             </Overlay>
           </Tile>
         </Image>
