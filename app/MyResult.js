@@ -36,7 +36,6 @@ class MyResult extends Component  {
     <Image
       styleName="large-portrait"
       source={this.pic}
-    
     >
       <Tile style={{justifyContent:'center',alignItems:'center',width:370, backgroundColor:'#185a9d', borderRadius: 100,height:800, left:20, top:100}}>
         <Image

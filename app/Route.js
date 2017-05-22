@@ -29,7 +29,7 @@ class App extends Component {
 
     return (
     <NavigationExperimental.Navigator
-    initialRoute  = {{name : 'Index'}}
+    initialRoute  = {{name : 'MyResult'}}
     renderScene = {this.renderScene}
     />
     );
