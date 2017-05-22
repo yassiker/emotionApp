@@ -15,7 +15,6 @@ import {
 } from '@shoutem/ui';
 import Camera from 'react-native-camera';
 var img = require('./assets/imgs/myframe.png');
-let ico = require('./assets/imgs/happy.jpg');
 import { getRandomEmotion } from '../config/emotions';
 import { getIcon } from '../config/emoticon';
 
@@ -33,12 +32,10 @@ class GetEmotion extends Component {
   }
 
   componentWillMount() {
-    
-    //alert('The Emotion is selected Randomly for you, Just Click on Capture to start');
+    alert('The Emotion is selected Randomly for you, Just Click on Capture to start');
   }
 
   componentDidMount () {
- 
     this.animate();
   }
 
@@ -57,21 +54,18 @@ class GetEmotion extends Component {
   navigate = (name) => {
     this.props.navigator.push({
       name,
-      data: this.state.emotionObject
-    
+      data: this.state.emotionObject  
     });
-
   }
 
   render() {
-    //alert(this.picval);
     const opacity = this.animatedValue.interpolate({
       inputRange: [0, 0.5, 1],
       outputRange: [0, 1, 0]
     });
 
     return (
-      <View style = {styles.cont}>
+      <View style = {styles.container}>
         <Camera
             ref={(cam) => {
               this.camera = cam;
@@ -85,25 +79,39 @@ class GetEmotion extends Component {
             <Image
             styleName="large-square"
             source={img}
-            />
-            
+            />  
         </Camera>
         <View style={styles.textview}>
-          <Text style={styles.mytext}>"{this.state.emotionObject.emotionName}"</Text>
+          <View style={{flexDirection:'row', marginRight:20, justifyContent:'center', alignItems:'center'}}>
           <Animated.View
             style={{
-              bottom:20,
-              left:310,
               opacity,
               alignItems:'flex-start'}} >
             <Image
               styleName="small-avatar"
               source={this.pic}
+              style={{width:100, height:100}}
               />
             </Animated.View>
-             <TouchableHighlight style={styles.fullWidthButton} onPress = {() => this.navigate('EmotionApi')}>
-          <Text style={styles.fullWidthButtonText}>CAPTURE</Text>
-        </TouchableHighlight>
+            </View>
+            <View style={{justifyContent:'center',alignItems:'center',width:500,height:100,backgroundColor: 'skyblue',borderRadius: 50,marginRight:40}}>
+          <Text style={styles.mytext}>"{this.state.emotionObject.emotionName}"</Text>
+           <TouchableHighlight style={styles.fullWidthButton} onPress = {() => this.navigate('EmotionApi')}>
+              <Text style={styles.fullWidthButtonText}>CAPTURE</Text>
+            </TouchableHighlight>
+          </View>
+          <View style={{alignItems:'flex-end'}}>
+          <Animated.View
+            style={{
+              opacity,
+              alignItems:'flex-end'}} >
+            <Image
+              styleName="small-avatar"
+              source={this.pic}
+              style={{width:100, height:100}}
+              />
+            </Animated.View>
+           </View>
         </View>
       </View>
 
@@ -116,29 +124,21 @@ GetEmotion.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  cont: {
+  container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'flex-start'
   },
   preview: {
     flex: 1,
     alignItems:'center',
-    justifyContent:'flex-start'
+    justifyContent:'center'
   },
-  myimg: {
-    top:30,
+  textview: { 
+    flexDirection:'row',
+
   },
-  textview: {
-    alignItems:'center', 
-    flexDirection:'column',
-    height:100,
-    width:500,
-    backgroundColor: 'skyblue',
-    borderRadius: 50,
-    
-  },
-  mytext:{
+  mytext: {
     fontSize: 40, 
     fontWeight: 'bold', 
     color:'white',
@@ -154,13 +154,12 @@ const styles = StyleSheet.create({
     width:200,
     borderWidth:2,
     borderColor: '#d6d7da',
-    bottom:50
   },
   fullWidthButtonText: {
     fontSize: 35,
     height:40,
     fontWeight: 'bold',
-    color: 'white'
+    color: 'white',
   }
 });
 

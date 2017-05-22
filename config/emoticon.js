@@ -20,7 +20,26 @@ export function getIcon(key) {
   }
 }
 
-
+export function getBackImage(key) {
+  switch(key) {
+  case 'Angry':
+    return require('../app/assets/imgs/angry.jpg');
+  case 'Happy':
+    return require('../app/assets/imgs/happy.jpg');
+  case 'Contempt':
+    return require('../app/assets/imgs/contempt.jpg');
+  case 'Scared':
+    return require('../app/assets/imgs/fear.jpg');
+  case 'Sad':
+    return require('../app/assets/imgs/sad.jpg');
+  case 'Neutral':
+    return require('../app/assets/imgs/neutral.jpg');
+  case 'Surprise':
+    return require('../app/assets/imgs/surprise.jpg');
+  case 'Disgust':
+    return require('../app/assets/imgs/disgust.jpg');
+  }
+}
 
 
 

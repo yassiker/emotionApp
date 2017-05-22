@@ -13,7 +13,6 @@ import Load from 'react-native-loading-gif';
 var Config = require('./Config');
 
 class EmotionApi extends Component {
-
   constructor() {
     super();
     this.state = {
@@ -41,7 +40,6 @@ class EmotionApi extends Component {
     var img = myimg.replace('file:', '');
     Config.myurl = img;
     return RNFS.readFile(img, 'base64');
-
   }
 
   _transformimage = (file) => {
@@ -53,11 +51,9 @@ class EmotionApi extends Component {
     var array = new Uint8Array(new ArrayBuffer(buffer.length))
       .map((x, i) => buffer.charCodeAt(i));
     return this._sendimagetoApi(array);
-
   }
 
   _sendimagetoApi = (array) => {
-
     return fetch('https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize?*', {
       method: 'POST',
       body: array,
@@ -71,8 +67,6 @@ class EmotionApi extends Component {
 
   _navigatetoResult = (data) =>{
     console.log(data);
-    //Config.emotionValue = data[0].scores[this.props.data.emotionKey];
-    //Config.randomEmotion = this.props.data.emotionName;
     this.setState({
       showCounter: false,
       temp: 3
@@ -82,6 +76,7 @@ class EmotionApi extends Component {
     })
     );
   }
+
   _takephoto = () => {
     this.setState({
       showCounter: false,
@@ -121,7 +116,6 @@ class EmotionApi extends Component {
   render() {
     return (
       <View style={styles.container}>
-
         <Camera
           ref={(cam) => {
             this.camera = cam;
@@ -131,8 +125,7 @@ class EmotionApi extends Component {
           captureQuality={Camera.constants.CaptureQuality.high}
           type={Camera.constants.Type.front}
           captureTarget={Camera.constants.CaptureTarget.disk}
-        >
-         
+        >       
         </Camera>
         {
           this.state.showCounter ? (
@@ -147,7 +140,6 @@ class EmotionApi extends Component {
       </View>
     );
   }
-
 }
 
 EmotionApi.propTypes = {
@@ -162,12 +154,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor:'skyblue'
   },
-
   preview: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-
   },
   counterstyle : {
     alignItems: 'center', 
@@ -183,11 +173,8 @@ const styles = StyleSheet.create({
     fontSize: 60,
     textAlign: 'center',
     zIndex: 1,
-    //top: 10,
     color: 'black'
   },
-
-
 });
 
 export default EmotionApi;

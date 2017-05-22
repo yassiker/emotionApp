@@ -14,17 +14,10 @@ export function getRandomEmotion() {
   return new MotionConfig(availableEmotions[Math.floor(Math.random() * availableEmotions.length)]);
 }
 
-
 class MotionConfig {
-
   constructor(emotion) {
     this.emotionName = emotion.name;
     this.emotionKey = emotion.key;
-  }
-
-  extractEmotionScore(scores) {
-
-    return this.emotionScore = scores[this.emotionKey];
   }
 }
 

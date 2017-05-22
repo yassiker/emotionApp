@@ -17,11 +17,10 @@ import {
   Easing
 } from 'react-native';
 
-let img1 = require('./assets/imgs/backimg2.png');
-let img2 = require('./assets/imgs/angry.jpg');
-let img3 = require('./assets/imgs/happy.jpg');
-
-let ico = require('./assets/imgs/sad.jpg');
+let img = require('./assets/imgs/backimg2.png');
+let img1 = require('./assets/imgs/angry.jpg');
+let img2 = require('./assets/imgs/happy.jpg');
+let img3 = require('./assets/imgs/sad.jpg');
 
 class Index extends Component {
 
@@ -60,15 +59,8 @@ class Index extends Component {
     });  
   }
 
+  _animation = () => {
 
-  goto = () => {
-    alert('yeeeees');
-  }
-  render() {  
-    /*const rotateX = this.animatedValue.interpolate({
-      inputRange: [0, 0.5, 1],
-      outputRange: ['0deg', '180deg', '0deg']
-    });*/
     const marginLeft = this.animatedValue.interpolate({
       inputRange: [0, 1],
       outputRange: [0, 300]
@@ -77,27 +69,105 @@ class Index extends Component {
       inputRange: [0, 0.5, 1],
       outputRange: [0, 1, 0]
     });
+    return <View style= {{top:250, right:100}}>
+             <Animated.Text
+            style={{
+              opacity,
+              fontSize: this._initilize(),
+              marginTop: 10,
+              marginLeft,
+              color: 'yellow',
+              top:120,
+              fontWeight:'bold'}} >
+              ANGER
+            </Animated.Text>
+             <Animated.Text
+            style={{
+              opacity,
+              fontSize: this._initilize(),
+              marginLeft,
+              marginTop: 10,
+              color: 'black',
+              top:120,
+              fontWeight:'bold'}} >
+              DISGUST
+            </Animated.Text>
+             <Animated.Text
+            style={{
+              opacity,
+              fontSize: this._initilize(),
+              marginLeft,
+              marginTop: 10,
+              color: 'white',
+              top:120,
+              fontWeight:'bold'}} >
+              NEUTRAL
+            </Animated.Text>
+            <Animated.Text
+            style={{
+              opacity,
+              fontSize: this._initilize(),
+              marginTop: 10,
+              color: 'green',
+              top:0,
+              fontWeight:'bold'}} >
+              FEAR
+            </Animated.Text>
+            <Animated.Text
+              style={{
+                opacity,
+                fontSize: this._initilize(),
+                marginTop: 10,
+                color: 'orange',
+                top:0,
+                fontWeight:'bold'}} >
+                HAPPINESS
+            </Animated.Text>
+            <Animated.Text
+              style={{
+                opacity,
+                fontSize: this._initilize(),
+                marginTop: 10,
+                color: 'red',
+                top:0,
+                fontWeight:'bold'}} >
+                SADNESS
+            </Animated.Text>
+            <Animated.Text
+              style={{
+                opacity,
+                fontSize: this._initilize(),
+                marginTop: 10,
+                color: 'skyblue',
+                top:0,
+                fontWeight:'bold'}} >
+                SURPRISE
+            </Animated.Text>
+          </View>; 
+
+  }
+
+  render() {  
+
+
     return (
       <View style={styleTypes.selectedOption}>
         
         <Image
           styleName='large-wide'
-          source={img1}
+          source={img}
           style={styleTypes.backgroundImage}
-        >
-
-        
+        > 
           <Tile style={{flex: 1,}}>
             <View style={{flexDirection:'row', bottom:50}}>
              <Image
               styleName='small'
-              source={img2}
+              source={img1}
               style={{bottom:150,right:150, marginRight: 10}}
-              onPress = { () => this.goto()}
             />
             <Image
               styleName='small'
-              source={ico}
+              source={img2}
               style={{bottom:150,right:150, marginRight: 10}}
             />
             <Image
@@ -116,77 +186,7 @@ class Index extends Component {
               <Subtitle styleName="sm-gutter-horizontal" style={{paddingTop:10,fontSize: 25,fontWeight: 'bold',}}>TO CHALLENGE YOUR FACE EMOTIONS</Subtitle>
             </Overlay>
           </Tile>
-          <View style= {{top:250, right:100}}>
-            <Animated.View
-            style={{
-              opacity,
-              marginLeft,
-              height: 30,
-              top:130,
-              
-            }} >
-            <Text style={{fontSize: 25,fontWeight: 'bold',color: 'yellow'}}>ANGER</Text>
-            </Animated.View>
-            <Animated.View
-            style={{
-              opacity,
-              marginLeft,
-              height: 30,
-              top:130
-            }} >
-            <Text style={{fontSize: 25,fontWeight: 'bold', color:'black'}}>DISGUST</Text>
-            </Animated.View>
-            <Animated.View
-            style={{
-              opacity,
-              marginLeft,
-              height: 30,
-              top:130
-            }} >
-            <Text style={{fontSize: 25,fontWeight: 'bold', color:'white'}}>NEUTRAL</Text>
-            </Animated.View>
-            <Animated.Text
-            style={{
-              opacity,
-              fontSize: this._initilize(),
-              marginTop: 10,
-              color: 'green',
-              top:25,
-              fontWeight:'bold'}} >
-              FEAR
-            </Animated.Text>
-            <Animated.Text
-              style={{
-                opacity,
-                fontSize: textSize,
-                marginTop: 10,
-                color: 'orange',
-                top:25,
-                fontWeight:'bold'}} >
-                HAPPINESS
-            </Animated.Text>
-            <Animated.Text
-              style={{
-                opacity,
-                fontSize: textSize,
-                marginTop: 10,
-                color: 'red',
-                top:25,
-                fontWeight:'bold'}} >
-                SADNESS
-            </Animated.Text>
-            <Animated.Text
-              style={{
-                opacity,
-                fontSize: textSize,
-                marginTop: 10,
-                color: 'skyblue',
-                top:25,
-                fontWeight:'bold'}} >
-                SURPRISE
-            </Animated.Text>
-          </View>
-
+          {this._animation()}
           
         </Image>
         
