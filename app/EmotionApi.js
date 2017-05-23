@@ -15,7 +15,7 @@ var Config = require('./Config');
 class EmotionApi extends Component {
   constructor() {
     super();
-    this.state = {
+    this.state = {  
       temp: 3,
       showCounter: true,
     };
@@ -48,10 +48,8 @@ class EmotionApi extends Component {
       global.atob = require('base-64').decode;
     }
     let buffer = atob(file);
-    //RNFS.unlink(file);
     var array = new Uint8Array(new ArrayBuffer(buffer.length))
       .map((x, i) => buffer.charCodeAt(i));
-      // Memory leak
     return this._sendimagetoApi(array);
   }
 
