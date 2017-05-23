@@ -48,8 +48,10 @@ class EmotionApi extends Component {
       global.atob = require('base-64').decode;
     }
     let buffer = atob(file);
+    //RNFS.unlink(file);
     var array = new Uint8Array(new ArrayBuffer(buffer.length))
       .map((x, i) => buffer.charCodeAt(i));
+      // Memory leak
     return this._sendimagetoApi(array);
   }
 
@@ -75,7 +77,7 @@ class EmotionApi extends Component {
       data: { name: this.props.data.emotionName , value: data[0].scores[this.props.data.emotionKey] }
     })
     );
-  }
+  }  
 
   _takephoto = () => {
     this.setState({
@@ -84,12 +86,8 @@ class EmotionApi extends Component {
     });
     const options = {};
     this.camera.capture([options])
-      .then((data) =>{
-        return this._createimage(data);
-      })
-      .then((file) => {
-        return this._transformimage(file);
-      })
+      .then(this._createimage)
+      .then(this._transformimage)
       .then(function (response) {
         console.log(response.json);
         return response.json();

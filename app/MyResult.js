@@ -37,27 +37,27 @@ class MyResult extends Component  {
       styleName="large-portrait"
       source={this.pic}
     >
-      <Tile style={{justifyContent:'center',alignItems:'center',width:370, backgroundColor:'#185a9d', borderRadius: 100,height:800, left:20, top:100}}>
+      <Tile style={{justifyContent:'center',alignItems:'center',width:370, backgroundColor:'#185a9d', borderRadius: 100,height:800, left:30, top:100}}>
         <Image
           styleName="medium-wide"
           style={{height:350}}
-          source={{uri:Config.myurl}}
+          source={{uri: Config.myurl}}
         />
         <Title styleName="md-gutter-bottom" style={{paddingTop:10,fontSize: 30,fontWeight: 'bold'}}>YOU ARE</Title>
         <Title styleName="md-gutter-bottom" style={{paddingTop:10,fontSize: 30,fontWeight: 'bold'}}>{(this.props.data.value*100).toFixed(2)}%</Title>
         <Title styleName="md-gutter-bottom" style={{paddingTop:10,fontSize: 30,fontWeight: 'bold'}}>{this.props.data.name}</Title>
-        <Button styleName="md-gutter-top"  onPress={() => this.props.navigator.replace({
+        <Button styleName="md-gutter-top"  style={{width:370, borderRadius:20, backgroundColor:'#e35d5b'}} onPress={() => this.props.navigator.replace({
           name : 'GetEmotion',
         })}>
           <Icon name="refresh"/>
-          <Text>Try Again</Text>
+          <Text style={{color:'white', fontSize: 25,fontWeight: 'bold'}}>Try Again</Text>
         </Button>
 
-        <Button styleName="md-gutter-top"  onPress={() => this.props.navigator.replace({
+        <Button styleName="md-gutter-top"  style={{width:370, borderRadius:20,backgroundColor:'#00dbde'}} onPress={() => this.props.navigator.replace({
           name : 'Index',
         })}>
           <Icon name="close"/>
-          <Text>   Home   </Text>
+          <Text style={{color:'white', fontSize: 25,fontWeight: 'bold'}}>   Home   </Text>
         </Button>
       </Tile>
     </Image>
