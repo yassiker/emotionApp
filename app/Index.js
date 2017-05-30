@@ -18,6 +18,7 @@ import {
 } from 'react-native';
 
 let img = require('./assets/imgs/backimg2.png');
+let backimage = require('./assets/imgs/iPad.png');
 let img1 = require('./assets/imgs/angry.jpg');
 let img2 = require('./assets/imgs/happy.jpg');
 let img3 = require('./assets/imgs/sad.jpg');
@@ -46,7 +47,7 @@ class Index extends Component {
     ).start(() => this.animate());
   }
   navigate = (name) => {
-    this.props.navigator.push({
+    this.props.navigator.replace({
       name
     });
 
@@ -154,8 +155,8 @@ class Index extends Component {
       <View style={styleTypes.selectedOption}>
         
         <Image
-          styleName='large-wide'
-          source={img}
+          styleName='large-portrait'
+          source={backimage}
           style={styleTypes.backgroundImage}
         > 
           <Tile style={{flex: 1,}}>
@@ -178,7 +179,7 @@ class Index extends Component {
             </View>
            
             <Title style={{right:150,bottom:100,fontSize: 25,fontWeight: 'bold'}}>EMOTION RECOGNITION</Title>
-            <Button styleName="dark" onPress = {() => this.navigate('GetEmotion')} style={{right:150,marginBottom:0,bottom: 50, width: 100 }}>
+            <Button styleName="dark" onPress = {() => this.navigate('Home')} style={{right:150,marginBottom:0,bottom: 50, width: 100 }}>
               <Text style={{ fontSize: 15, fontWeight: 'bold', }}>START</Text>
             </Button>
             

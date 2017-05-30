@@ -3,3 +3,4 @@ import App from './app/Route';
 
 AppRegistry.registerComponent('emotionapp', () => App);
 
+//import './App';
