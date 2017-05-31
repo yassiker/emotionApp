@@ -26,43 +26,40 @@ class Result extends Component  {
   render() {
     return (
     <View style = {styles.container}>
-        <View style={{borderBottomColor:'white',backgroundColor: 'black', alignItems:'center', justifyContent:'center', height:50, borderWidth:3}}>
-          <Text style={{color:'white',fontSize: 30,fontWeight: 'bold'}}>Emotion Recognition</Text>
+        <View style={{borderBottomColor:'white',backgroundColor: 'black', alignItems:'center', justifyContent:'center', height:80, borderWidth:3}}>
+          <Text style={{color:'white',fontSize: 30,fontWeight: '300'}}>Emotion Recognition</Text>
         </View>
         <Image
           styleName="large-portrait"
           source={{uri: Config.myurl}}
-        >
-            
-        <View style = {{width:450,height:100,justifyContent:'center', alignItems:'center', opacity:0.5}}>
-          <View style = {{opacity:0.5,borderRadius:4,backgroundColor:'white',height:100, justifyContent:'center', alignItems:'center', padding:10}}>
-            <Text style={{marginBottom:5,fontSize: 30}}>Percentage of "{this.props.data.name}" face</Text>
-            <Text style={{marginBottom:5, fontSize: 30,fontWeight: 'bold'}}>{(this.props.data.value*100).toFixed(2)}%</Text>
+        >        
+          <View style = {{bottom:120,width:480,opacity:0.8,borderRadius:10,backgroundColor:'skyblue',height:150, justifyContent:'center', alignItems:'center', padding:30}}>
+           <Text style={{marginBottom:20,fontSize: 30,fontWeight: '300'}}>Percentage of "Surprisess" face</Text>
+            <Text style={{marginBottom:5, fontSize: 30,fontWeight: 'bold'}}>1.78%</Text>
           </View>
-        </View> 
-
-        
+            
           <View style = {{
             flexDirection:'row',
             alignItems:'center',
-            opacity:0.5,
-            borderRadius:4,
-            backgroundColor:'white',
-            width:390,
-            height:40,
+            opacity:0.8,
+            borderRadius:10,
+            backgroundColor:'skyblue',
+            width:480,
+            height:60,
             marginTop:10,
+            bottom:120,
             justifyContent:'space-between'}}>
-                  <TouchableHighlight  onPress = {() => this.navigate('Index2')} style={{height:30,width:200, justifyContent:'center', alignItems:'center', borderRightWidth:1,borderRightColor:'black'}}>
-                  <Text style={{color:'red', fontSize: 20,fontWeight: 'bold'}} >Close</Text>
+                  <TouchableHighlight  onPress = {() => this.navigate('Index')} style={{height:50,width:240, justifyContent:'center', alignItems:'center', borderRightWidth:1,borderRightColor:'black'}}>
+                  <Text style={{color:'red', fontSize: 20,fontWeight: '300'}} >Home</Text>
                    </TouchableHighlight> 
-                   <TouchableHighlight onPress = {() => this.navigate('Home')} style={{height:30,width:200, justifyContent:'center', alignItems:'center'}}>
-                  <Text style={{fontSize: 20,fontWeight: 'bold'}}>Start Over</Text>
+                   <TouchableHighlight onPress = {() => this.navigate('Home')} style={{height:50,width:240, justifyContent:'center', alignItems:'center'}}>
+                  <Text style={{fontSize: 20,fontWeight: '300'}}>Start Over</Text>
                    </TouchableHighlight> 
           </View>
      
         
-         <View style={{zIndex:1,right: 0,bottom: 0,left: 0,position: 'absolute',opacity: 0.4,height:100, backgroundColor:'black', justifyContent:'center', alignItems:'center'}}>
-            <TouchableHighlight onPress={() => this.myalert('Result')} style={{justifyContent:'center', alignItems:'center'}}>  
+         <View style={{zIndex:1,right: 0,bottom: 0,left: 0,position: 'absolute',opacity: 0.4,height:210, backgroundColor:'black', justifyContent:'center', alignItems:'center'}}>
+            <TouchableHighlight onPress={() => this.navigate('Home')} style={{justifyContent:'center', alignItems:'center', bottom:45}}>  
             <View>
             <Text style={{justifyContent:'center', alignItems:'center',borderColor:'white',borderWidth:25, height:70, width:70, borderRadius:35}}>
             </Text>

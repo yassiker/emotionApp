@@ -1,14 +1,11 @@
 import React , { Component } from 'react';
 
 import NavigationExperimental from 'react-native-deprecated-custom-components';
-import GetEmotion from './GetEmotion';
-import EmotionApi from './EmotionApi';
 import Index from './Index';
-import MyResult from './MyResult';
 import Home from './Home';
 import Result from './Result';
 import GetImage from './GetImage';
-import Index2 from './Index2';
+
 
 class App extends Component {
 
@@ -27,15 +24,7 @@ class App extends Component {
       return < Result navigator = {navigator} data={route.data} />;
     } else if (route.name == 'GetImage') {
       return < GetImage navigator = {navigator} data={route.data}/>;
-    } else if (route.name == 'Index2') {
-      return < Index2 navigator = {navigator} data={route.data}/>;
-    } else if (route.name === 'GetEmotion') {
-      return < GetEmotion navigator = {navigator} data={route.data} />;
-    } else if(route.name === 'EmotionApi') {
-      return < EmotionApi navigator = {navigator} data={route.data} />;
-    } else if (route.name === 'MyResult') {
-      return < MyResult navigator = {navigator} data={route.data} />;
-    }
+    } 
   }
 
   render() {
@@ -43,7 +32,7 @@ class App extends Component {
     return (
     <NavigationExperimental.Navigator
     style={{ flex:1}}
-    initialRoute  = {{name : 'Index2'}}
+    initialRoute  = {{name : 'Index'}}
     renderScene = {this.renderScene}
     />
     );

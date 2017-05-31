@@ -15,7 +15,7 @@ import Camera from 'react-native-camera';
 import { Buffer } from 'buffer';
 import RNFS from 'react-native-fs';
 var Config = require('./Config');
-//import Load from 'react-native-loading-gif';
+import Load from 'react-native-loading-gif';
 
 import { getIcon } from '../config/emoticon';
 
@@ -24,13 +24,15 @@ class GetImage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showelement: true,
-      temp: 3,
+      temp: 5,
       showCounter: true,
     };
     this.pic = getIcon(this.props.data.emotionKey);
   }
 
+  componentWillMount() {
+    this._counter();
+  }
   myalert = (name) => {
     this.props.navigator.push({
       name
@@ -38,7 +40,13 @@ class GetImage extends Component {
 
   }
 
+  componentDidUpdate() {
+    if (this.state.temp === 0) {
+      this.refs.Load.setTimeClose(4000);
+    }
+  }
   _counter = () => {
+
     this.takePictureInterval = setInterval(() => this._counting(), 1000);
   }
 
@@ -61,7 +69,6 @@ class GetImage extends Component {
   }
 
   _sendimagetoApi = (array) => {
-    alert('fetch method');
     return fetch('https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize?*', {
       method: 'POST',
       body: array,
@@ -75,11 +82,9 @@ class GetImage extends Component {
 
   _navigatetoResult = (data) =>{
     console.log(data);
-    alert(data[0].scores[this.props.data.emotionKey]);
-
     this.setState({
       showCounter: false,
-      temp: 3
+      temp: 5
     }, this.props.navigator.push({
       name : 'Result',
       data: { name: this.props.data.emotionName , value: data[0].scores[this.props.data.emotionKey] }
@@ -90,7 +95,7 @@ class GetImage extends Component {
   _takephoto = () => {
     this.setState({
       showCounter: false,
-      temp: 3
+      temp: 5
     });
     const options = {};
     this.camera.capture([options])
@@ -121,16 +126,16 @@ class GetImage extends Component {
 
   render() {
     return (<View style = {styles.container}>
-                <View style={{flexDirection: 'row',borderTopColor:'white',borderBottomColor:'white',backgroundColor: 'black', alignItems:'center', justifyContent:'center', height:50, borderWidth:1}}>
+                <View style={{flexDirection: 'row',backgroundColor: 'black', alignItems:'center', justifyContent:'center', height:80}}>
                   <Image
                     source={this.pic}
                     style = {{width:48, height:48, marginRight:15}}
                   />
-                  <Text style={{color:'white',fontSize: 30,fontWeight: 'bold'}}>{this.props.data.emotionName}</Text>
+                  <Text style={{color:'white',fontSize: 30,fontWeight: '300'}}>{this.props.data.emotionName}</Text>
                 </View> 
                 <Image
-                  source={require('./assets/imgs/frame.png')}
-                  style = {{position:'absolute',flex:1,left:150, right:0, zIndex:1, top:180,width:500, height:600}}
+                  source={require('./assets/imgs/frame1.png')}
+                  style = {{position:'absolute',flex:1,left:100, right:0, bottom:0, zIndex:1, top:180,width:601, height:679}}
                 />     
              <Camera
               ref={(cam) => {
@@ -150,20 +155,18 @@ class GetImage extends Component {
                 <View style={styles.counterstyle}>
                   <Text style={styles.counter} >{this.state.temp}</Text>
                 </View>
-              ) : <View style={styles.loading}>
-                  <Text style={styles.counter} >Loading...</Text>
-                </View>
+              ) : null
             }
-            <View style={{zIndex:1,right: 0,bottom: 0,left: 0,position: 'absolute',opacity: 0.4,height:100, backgroundColor:'black', justifyContent:'center', alignItems:'center'}}>
-            <TouchableHighlight onPress={() => this._counter()} style={{justifyContent:'center', alignItems:'center'}}>  
-            <View>
+            <View style={{zIndex:1,right: 0,bottom: 0,left: 0,position: 'absolute',opacity: 0.4,height:95, backgroundColor:'black', justifyContent:'center', alignItems:'center'}}>
+            <TouchableHighlight style={{justifyContent:'center', alignItems:'center'}}>  
+            <View style={{top:13}}>
             <Text style={{justifyContent:'center', alignItems:'center',borderColor:'white',borderWidth:25, height:70, width:70, borderRadius:35}}>
             </Text>
             <Text style={{bottom:46,borderColor:'red',borderWidth:11, height:22, width:22, borderRadius:11, zIndex:1,left:24}}></Text>
             </View>
             </TouchableHighlight>
           </View> 
- 
+          <Load opacity={0.8} ref="Load"></Load>
           </View>
     );
   }
@@ -199,16 +202,17 @@ const styles = StyleSheet.create({
     position:'absolute',
     top:400,
     bottom:0,
-    left:0,
+    left:80,
     right:0,
     alignItems: 'center', 
     height: 100, 
     justifyContent: 'center'
   },
   counter: {
-    fontSize: 60,
+    fontSize: 100,
     textAlign: 'center',
     zIndex: 1,
+    fontWeight: 'bold',
     color: 'white'
   },
 });
