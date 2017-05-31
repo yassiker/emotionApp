@@ -17,7 +17,7 @@ import {
   Easing
 } from 'react-native';
 
-let img = require('./assets/imgs/backimg2.png');
+//let img = require('./assets/imgs/backimg2.png');
 let backimage = require('./assets/imgs/iPad.png');
 let img1 = require('./assets/imgs/angry.jpg');
 let img2 = require('./assets/imgs/happy.jpg');

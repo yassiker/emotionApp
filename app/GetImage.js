@@ -5,20 +5,30 @@ import {
     StyleSheet,
     TouchableHighlight,
     Text,
+    Image
 } from 'react-native';
 
 import {
 
 } from '@shoutem/ui';
 import Camera from 'react-native-camera';
+import { Buffer } from 'buffer';
+import RNFS from 'react-native-fs';
+var Config = require('./Config');
+//import Load from 'react-native-loading-gif';
+
+import { getIcon } from '../config/emoticon';
 
 class GetImage extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      showelement: true
+      showelement: true,
+      temp: 3,
+      showCounter: true,
     };
+    this.pic = getIcon(this.props.data.emotionKey);
   }
 
   myalert = (name) => {
@@ -27,20 +37,101 @@ class GetImage extends Component {
     });
 
   }
-  render() {
-    return (<View style = { styles.container}>
-                <View style={{position: 'absolute',borderBottomColor:'white',backgroundColor: 'black', alignItems:'center', justifyContent:'center', height:50, borderWidth:3,zIndex:1}}>
-                  <Text style={{color:'white'}}>Emotion Recognition</Text>
-                </View>
-                <View style = {{position: 'absolute', justifyContent:'center', alignItems:'center',zIndex:1, top:100, right:0, left:0}}>
-                  <View style = {{opacity:1, justifyContent:'center', height:450, width:300,alignItems:'center', padding:10, borderWidth:2, borderColor:'white'}}>
-                    <View style = {{backgroundColor: 'black',opacity:1, justifyContent:'center', height:450, width:300,alignItems:'center', padding:10, borderWidth:2,borderRadius:25}}>
-                      <View style = {{opacity:0, justifyContent:'center', height:450, width:300,alignItems:'center', padding:10, borderWidth:2,borderRadius:25}}>
-                      </View>
-                    </View>
-                  </View>
-                </View>
 
+  _counter = () => {
+    this.takePictureInterval = setInterval(() => this._counting(), 1000);
+  }
+
+  _createimage = (data) => {
+    var myimg = data.path;
+    var img = myimg.replace('file:', '');
+    Config.myurl = img;
+    return RNFS.readFile(img, 'base64');
+  }
+
+  _transformimage = (file) => {
+    file = new Buffer(file);
+    if (!global.atob) {
+      global.atob = require('base-64').decode;
+    }
+    let buffer = atob(file);
+    var array = new Uint8Array(new ArrayBuffer(buffer.length))
+      .map((x, i) => buffer.charCodeAt(i));
+    return this._sendimagetoApi(array);
+  }
+
+  _sendimagetoApi = (array) => {
+    alert('fetch method');
+    return fetch('https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize?*', {
+      method: 'POST',
+      body: array,
+      headers: {
+        'Ocp-Apim-Subscription-Key': '7bea3b94b4434e118e3715da57d8c17f',
+        'Content-Type': 'application/octet-stream'
+      },
+      credentials: 'same-origin',
+    });
+  }
+
+  _navigatetoResult = (data) =>{
+    console.log(data);
+    alert(data[0].scores[this.props.data.emotionKey]);
+
+    this.setState({
+      showCounter: false,
+      temp: 3
+    }, this.props.navigator.push({
+      name : 'Result',
+      data: { name: this.props.data.emotionName , value: data[0].scores[this.props.data.emotionKey] }
+    })
+    );
+  }
+
+  _takephoto = () => {
+    this.setState({
+      showCounter: false,
+      temp: 3
+    });
+    const options = {};
+    this.camera.capture([options])
+      .then(this._createimage)
+      .then(this._transformimage)
+      .then(function (response) {
+        console.log(response.json);
+        return response.json();
+      })    
+      .then((data) => {
+        this._navigatetoResult(data);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });         
+  }
+
+  _counting = () => {
+    if (this.state.temp === 0) {
+      this._takephoto();
+      clearInterval(this.takePictureInterval);
+    } else {
+      this.setState({
+        temp: --this.state.temp
+      });
+    }
+  }
+
+  render() {
+    return (<View style = {styles.container}>
+                <View style={{flexDirection: 'row',borderTopColor:'white',borderBottomColor:'white',backgroundColor: 'black', alignItems:'center', justifyContent:'center', height:50, borderWidth:1}}>
+                  <Image
+                    source={this.pic}
+                    style = {{width:48, height:48, marginRight:15}}
+                  />
+                  <Text style={{color:'white',fontSize: 30,fontWeight: 'bold'}}>{this.props.data.emotionName}</Text>
+                </View> 
+                <Image
+                  source={require('./assets/imgs/frame.png')}
+                  style = {{position:'absolute',flex:1,left:150, right:0, zIndex:1, top:180,width:500, height:600}}
+                />     
              <Camera
               ref={(cam) => {
                 this.camera = cam;
@@ -51,14 +142,28 @@ class GetImage extends Component {
               type={Camera.constants.Type.front}
               captureTarget={Camera.constants.CaptureTarget.disk}
             >
+            <Text style={{color:'white',fontSize: 30,fontWeight: 'bold'}}> </Text>
             </Camera>
-            <View style={{zIndex:1,right: 0,bottom: 0,left: 0,position: 'absolute',opacity: 0.4,height:50, backgroundColor:'black', justifyContent:'center', alignItems:'center'}}>
-              <TouchableHighlight onPress={() => this.myalert('Result')} style={{justifyContent:'center', alignItems:'center', backgroundColor:'red'}}>  
-              <Text style={{justifyContent:'center', alignItems:'center',borderColor:'white',borderWidth:10, height:30, width:30, borderRadius:15}}>
-              <Text style={{backgroundColor:'red',borderWidth:5, height:2, width:10, borderRadius:5}}></Text>
-              </Text>
-              </TouchableHighlight>
+           
+            {
+              this.state.showCounter ? (
+                <View style={styles.counterstyle}>
+                  <Text style={styles.counter} >{this.state.temp}</Text>
+                </View>
+              ) : <View style={styles.loading}>
+                  <Text style={styles.counter} >Loading...</Text>
+                </View>
+            }
+            <View style={{zIndex:1,right: 0,bottom: 0,left: 0,position: 'absolute',opacity: 0.4,height:100, backgroundColor:'black', justifyContent:'center', alignItems:'center'}}>
+            <TouchableHighlight onPress={() => this._counter()} style={{justifyContent:'center', alignItems:'center'}}>  
+            <View>
+            <Text style={{justifyContent:'center', alignItems:'center',borderColor:'white',borderWidth:25, height:70, width:70, borderRadius:35}}>
+            </Text>
+            <Text style={{bottom:46,borderColor:'red',borderWidth:11, height:22, width:22, borderRadius:11, zIndex:1,left:24}}></Text>
+            </View>
+            </TouchableHighlight>
           </View> 
+ 
           </View>
     );
   }
@@ -72,12 +177,39 @@ GetImage.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection:'column'
   },
   preview: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
+    flex:1,
     alignItems:'center',
+    justifyContent:'center'
+  },
+  counterstyle : {
+    position:'absolute',
+    alignItems: 'center', 
+    height: 100,
+    zIndex: 1,
+    top:400,
+    bottom:0,
+    left:0,
+    right:0, 
+    justifyContent: 'center'
+  },
+  loading: {
+    position:'absolute',
+    top:400,
+    bottom:0,
+    left:0,
+    right:0,
+    alignItems: 'center', 
+    height: 100, 
+    justifyContent: 'center'
+  },
+  counter: {
+    fontSize: 60,
+    textAlign: 'center',
+    zIndex: 1,
+    color: 'white'
   },
 });
 

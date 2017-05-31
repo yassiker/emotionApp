@@ -43,7 +43,7 @@ class App extends Component {
     return (
     <NavigationExperimental.Navigator
     style={{ flex:1}}
-    initialRoute  = {{name : 'Result'}}
+    initialRoute  = {{name : 'Index2'}}
     renderScene = {this.renderScene}
     />
     );

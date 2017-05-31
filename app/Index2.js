@@ -32,7 +32,7 @@ class Index2 extends Component {
           style={styleTypes.backgroundImage}
         >      
         <Button style={styleTypes.startButton} onPress = {() => this.navigate('Home')}>
-         <Text>Start</Text>
+         <Text style={{fontSize: 20,fontWeight: 'bold'}}>Start</Text>
         </Button>  
         </Image>
       
@@ -60,8 +60,10 @@ const styleTypes = {
     alignItems: 'center'
   },
   startButton : {
-    width:150, 
-    borderRadius:25,bottom:20
+    width:250, 
+    borderRadius:50,
+    height:50,
+    bottom:30
   }
 
 };
