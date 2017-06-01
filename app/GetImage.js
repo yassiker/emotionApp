@@ -117,6 +117,13 @@ class GetImage extends Component {
     }
   }
 
+  _onPressButton = (name) => {
+    this.props.navigator.push({
+      name,
+      data: { name: this.props.data.emotionName , value: data[0].scores[this.props.data.emotionKey] }
+    });
+  }
+
   render() {
     return (<View style = {styles.container}>
                 <View style={{flexDirection: 'row',backgroundColor: 'black', alignItems:'center', justifyContent:'center', height:80}}>
@@ -151,7 +158,7 @@ class GetImage extends Component {
               ) : null
             }
             <View style={{zIndex:1,right: 0,bottom: 0,left: 0,position: 'absolute',opacity: 0.3,height:95, backgroundColor:'black', justifyContent:'center', alignItems:'center'}}>
-            <TouchableHighlight style={{zIndex:1,justifyContent:'center', alignItems:'center',opacity:1}}>  
+            <TouchableHighlight style={{zIndex:1,justifyContent:'center', alignItems:'center',opacity:1}} onPress={() => this._onPressButton('Index')}>  
             <View style={{zIndex:1,top:13}}>
             <Text style={{zIndex:1,opacity:1,justifyContent:'center', alignItems:'center',borderColor:'white',borderWidth:25, height:70, width:70, borderRadius:35}}>
             </Text>
