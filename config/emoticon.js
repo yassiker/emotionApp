@@ -2,21 +2,21 @@
 export function getIcon(key) {
   switch(key) {
   case 'anger':
-    return require('../app/assets/imgs/angry.png');
+    return require('../app/assets/imgs/icons/anger.png');
   case 'happiness':
-    return require('../app/assets/imgs/happy.png');
+    return require('../app/assets/imgs/icons/happy.png');
   case 'contempt':
-    return require('../app/assets/imgs/contempt.png');
+    return require('../app/assets/imgs/icons/contempt.png');
   case 'fear':
-    return require('../app/assets/imgs/fear.png');
+    return require('../app/assets/imgs/icons/fear.png');
   case 'sadness':
-    return require('../app/assets/imgs/sad.png');
+    return require('../app/assets/imgs/icons/sad.png');
   case 'neutral':
-    return require('../app/assets/imgs/neutral.png');
+    return require('../app/assets/imgs/icons/neutral.png');
   case 'surprise':
-    return require('../app/assets/imgs/surprise.png');
+    return require('../app/assets/imgs/icons/surprise.png');
   case 'disgust':
-    return require('../app/assets/imgs/disgust.png');
+    return require('../app/assets/imgs/icons/disgust.png');
   }
 }
 
