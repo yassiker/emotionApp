@@ -118,7 +118,7 @@ class GetImage extends Component {
   }
 
   _onPressButton = (name) => {
-    this.props.navigator.pop({
+    this.props.navigator.replace({
       name,
     });
   }
