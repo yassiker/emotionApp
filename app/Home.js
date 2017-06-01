@@ -46,11 +46,11 @@ class Home extends Component {
            bottom:0,
            left: 0,
            right: 0}}>
-              <View style = {{opacity:0.8,borderRadius:10,backgroundColor:'white',height:180, justifyContent:'center', alignItems:'center', padding:70}}>
-                <Text style={{marginBottom:30,fontSize: 30,fontWeight: '300'}}>Make a "{this.state.emotionObject.emotionName}" face</Text>
+              <View style = {{opacity:0.8,borderRadius:10,backgroundColor:'white',height:200, justifyContent:'center', alignItems:'center', padding:70}}>
+                <Text style={{marginBottom:0,fontSize: 30,fontWeight: '300'}}>Make "{this.state.emotionObject.emotionName}" face</Text>
                 <Image
                   source={this.pic}
-                  style = {{width:84, height:84}}
+                  style = {{width:144, height:144}}
                 />
               </View>
         </View>
@@ -66,7 +66,7 @@ class Home extends Component {
         > 
         <Text style={{color:'white',fontSize: 20,fontWeight: 'bold'}}> </Text>
         </Camera> 
-           <View style={{zIndex:1,right: 0,bottom: 0,left: 0,position: 'absolute',opacity: 0.4,height:95, backgroundColor:'black', justifyContent:'center', alignItems:'center'}}>
+           <View style={{zIndex:1,right: 0,bottom: 0,left: 0,position: 'absolute',opacity: 0.9,height:95, backgroundColor:'black', justifyContent:'center', alignItems:'center'}}>
             <TouchableHighlight onPress={() => this._onPressButton('GetImage')} style={{justifyContent:'center', alignItems:'center'}}>  
             <View style={{top:13}}>
             <Text style={{justifyContent:'center', alignItems:'center',borderColor:'white',borderWidth:25, height:70, width:70, borderRadius:35}}>
