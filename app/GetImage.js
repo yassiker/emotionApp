@@ -33,12 +33,6 @@ class GetImage extends Component {
   componentWillMount() {
     this._counter();
   }
-  myalert = (name) => {
-    this.props.navigator.push({
-      name
-    });
-
-  }
 
   componentDidUpdate() {
     if (this.state.temp === 0) {
@@ -46,7 +40,6 @@ class GetImage extends Component {
     }
   }
   _counter = () => {
-
     this.takePictureInterval = setInterval(() => this._counting(), 1000);
   }
 

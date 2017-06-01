@@ -33,9 +33,9 @@ class Result extends Component  {
           styleName="large-portrait"
           source={{uri: Config.myurl}}
         >        
-          <View style = {{bottom:120,width:480,opacity:0.8,borderRadius:10,backgroundColor:'skyblue',height:150, justifyContent:'center', alignItems:'center', padding:30}}>
-           <Text style={{marginBottom:20,fontSize: 30,fontWeight: '300'}}>Percentage of "Surprisess" face</Text>
-            <Text style={{marginBottom:5, fontSize: 30,fontWeight: 'bold'}}>1.78%</Text>
+          <View style = {{bottom:120,width:480,opacity:0.8,borderRadius:10,backgroundColor:'white',height:150, justifyContent:'center', alignItems:'center', padding:30}}>
+           <Text style={{marginBottom:20,fontSize: 30,fontWeight: '300'}}>Percentage of "{this.props.data.name}" face</Text>
+          <Text style={{marginBottom:5, fontSize: 30,fontWeight: 'bold'}}>{(this.props.data.value*100).toFixed(2)}%</Text>
           </View>
             
           <View style = {{
@@ -43,7 +43,7 @@ class Result extends Component  {
             alignItems:'center',
             opacity:0.8,
             borderRadius:10,
-            backgroundColor:'skyblue',
+            backgroundColor:'white',
             width:480,
             height:60,
             marginTop:10,
