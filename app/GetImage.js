@@ -118,9 +118,8 @@ class GetImage extends Component {
   }
 
   _onPressButton = (name) => {
-    this.props.navigator.push({
+    this.props.navigator.pop({
       name,
-      data: { name: this.props.data.emotionName , value: data[0].scores[this.props.data.emotionKey] }
     });
   }
 
