@@ -7,17 +7,16 @@ import {
   TouchableHighlight,
   Image
 } from 'react-native';
-
 import Camera from 'react-native-camera';
 import { getRandomEmotion } from '../config/emotions';
 import { getIcon } from '../config/emoticon';
+
 class Home extends Component {
 
   constructor(props) {
     super(props);
     this.state = {  
       emotionObject : getRandomEmotion(),
-
     }; 
     this.pic = getIcon(this.state.emotionObject.emotionKey);
   }
@@ -77,15 +76,12 @@ class Home extends Component {
             
           </View>  
       </View>
-    ); 
-    
+    );    
   }
-
 }
 
 Home.propTypes = {
   navigator: PropTypes.object,
- 
 };
 
 const styles = StyleSheet.create({
