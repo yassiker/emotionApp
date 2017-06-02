@@ -5,9 +5,7 @@ import {
   Button,
   Text,
   View
-
 } from '@shoutem/ui';
-
 let backimage = require('./assets/imgs/iPad3.png');
 
 class Index extends Component {
@@ -70,7 +68,6 @@ const styleTypes = {
     bottom:60,
     borderColor: '#D39924',
   }
-
 };
 
 export default Index;

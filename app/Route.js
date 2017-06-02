@@ -6,16 +6,13 @@ import Home from './Home';
 import Result from './Result';
 import GetImage from './GetImage';
 
-
 class App extends Component {
-
   constructor() {
     super();
     this.renderScene = this.renderScene.bind(this);
   }
 
   renderScene = (route, navigator) => {
-
     if(route.name === 'Index') {
       return < Index navigator = {navigator} data={route.data} />;
     } else if (route.name == 'Home') {
@@ -24,11 +21,10 @@ class App extends Component {
       return < Result navigator = {navigator} data={route.data} />;
     } else if (route.name == 'GetImage') {
       return < GetImage navigator = {navigator} data={route.data}/>;
-    } 
+    }
   }
 
   render() {
-
     return (
     <NavigationExperimental.Navigator
     style={{ flex:1}}
@@ -37,9 +33,6 @@ class App extends Component {
     />
     );
   }
-
-
 }
-
 
 export default App;

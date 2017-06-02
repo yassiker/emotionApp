@@ -26,7 +26,7 @@ class Result extends Component  {
   render() {
     return (
     <View style = {styles.container}>
-        <View style={{borderBottomColor:'white',backgroundColor: 'black', alignItems:'center', justifyContent:'center', height:80, borderWidth:3}}>
+        <View style={{backgroundColor: 'black', alignItems:'center', justifyContent:'center', height:80}}>
           <Text style={{color:'white',fontSize: 30,fontWeight: '300'}}>Emotion Recognition</Text>
         </View>
         <Image

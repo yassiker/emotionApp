@@ -7,15 +7,12 @@ import {
     Text,
     Image
 } from 'react-native';
-
-import {
-
-} from '@shoutem/ui';
 import Camera from 'react-native-camera';
+import Load from 'react-native-loading-gif';
 import { Buffer } from 'buffer';
 import RNFS from 'react-native-fs';
+
 var Config = require('./Config');
-import Load from 'react-native-loading-gif';
 
 import { getIcon } from '../config/emoticon';
 
@@ -25,6 +22,7 @@ class GetImage extends Component {
     super(props);
     this.state = {
       temp: 5,
+      temp1:0,
       showCounter: true,
     };
     this.pic = getIcon(this.props.data.emotionKey);
@@ -34,11 +32,6 @@ class GetImage extends Component {
     this._counter();
   }
 
-  componentDidUpdate() {
-    if (this.state.temp === 0) {
-      this.refs.Load.setTimeClose(4000);
-    }
-  }
   _counter = () => {
     this.takePictureInterval = setInterval(() => this._counting(), 1000);
   }
@@ -74,15 +67,26 @@ class GetImage extends Component {
   }
 
   _navigatetoResult = (data) =>{
+    this.refs.Load.setTimeClose(2000);
     console.log(data);
-    this.setState({
-      showCounter: false,
-      temp: 5
-    }, this.props.navigator.push({
-      name : 'Result',
-      data: { name: this.props.data.emotionName , value: data[0].scores[this.props.data.emotionKey] }
-    })
-    );
+    this.myinterval = setInterval(() => {
+      if(this.state.temp1==2) {
+        clearInterval(this.myinterval);  
+        this.setState({
+          showCounter: false,
+          temp: 5
+        }, this.props.navigator.push({
+          name : 'Result',
+          data: { name: this.props.data.emotionName , value: data[0].scores[this.props.data.emotionKey] }
+        })
+        );
+      }else {
+        this.setState({
+          temp1 : this.state.temp1 + 1
+        });
+      }
+    }, 1000);
+
   }
 
   _takephoto = () => {
@@ -115,12 +119,6 @@ class GetImage extends Component {
         temp: --this.state.temp
       });
     }
-  }
-
-  _onPressButton = (name) => {
-    this.props.navigator.replace({
-      name,
-    });
   }
 
   render() {
@@ -156,8 +154,9 @@ class GetImage extends Component {
                 </View>
               ) : null
             }
+
             <View style={{zIndex:1,right: 0,bottom: 0,left: 0,position: 'absolute',opacity: 0.3,height:95, backgroundColor:'black', justifyContent:'center', alignItems:'center'}}>
-            <TouchableHighlight style={{zIndex:1,justifyContent:'center', alignItems:'center',opacity:1}} onPress={() => this._onPressButton('Index')}>  
+            <TouchableHighlight style={{zIndex:1,justifyContent:'center', alignItems:'center',opacity:1}}>  
             <View style={{zIndex:1,top:13}}>
             <Text style={{zIndex:1,opacity:1,justifyContent:'center', alignItems:'center',borderColor:'white',borderWidth:25, height:70, width:70, borderRadius:35}}>
             </Text>
@@ -191,7 +190,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     height: 100,
     zIndex: 1,
-    top:400,
+    top:450,
     bottom:0,
     left:0,
     right:0, 
@@ -199,7 +198,7 @@ const styles = StyleSheet.create({
   },
   loading: {
     position:'absolute',
-    top:400,
+    top:450,
     bottom:0,
     left:80,
     right:0,
