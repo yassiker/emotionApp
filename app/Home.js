@@ -45,7 +45,7 @@ class Home extends Component {
            bottom:0,
            left: 0,
            right: 0}}>
-              <View style = {{opacity:0.8,borderRadius:10,backgroundColor:'white',height:200, justifyContent:'center', alignItems:'center', padding:70}}>
+              <View style = {{opacity:0.8,borderRadius:10,backgroundColor:'white',height:200, justifyContent:'center', alignItems:'center', padding:10}}>
                 <Text style={{marginBottom:0,fontSize: 30,fontWeight: '300'}}>Make "{this.state.emotionObject.emotionName}" face</Text>
                 <Image
                   source={this.pic}
